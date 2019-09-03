@@ -1,6 +1,7 @@
 package ru.otus.raukhvarger.homework_1.service;
 
-import ru.otus.raukhvarger.homework_1.Main;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ru.otus.raukhvarger.homework_1.domain.Question;
 import ru.otus.raukhvarger.homework_1.exeptions.FailedParsingException;
 import ru.otus.raukhvarger.homework_1.exeptions.ParserNotFoundException;
@@ -12,8 +13,10 @@ import java.util.stream.Collectors;
 
 public class LoaderServiceImpl implements LoaderService {
 
-    private String answersFileName;
-    private ParserService parser;
+    static final Logger logger = LogManager.getLogger(LoaderServiceImpl.class);
+
+    private final String answersFileName;
+    private final ParserService parser;
 
     private List<Question> questions;
 
@@ -35,9 +38,9 @@ public class LoaderServiceImpl implements LoaderService {
         try {
             return parser.parseQuestion(s);
         } catch (ParserNotFoundException parserNotFound) {
-            Main.log("ERROR", "Parser not found: " + s);
+            logger.error("Parser not found: " + s);
         } catch (FailedParsingException e) {
-            Main.log("ERROR", "Failed question: " + s);
+            logger.error("Failed question: " + s);
         }
         return null;
     }

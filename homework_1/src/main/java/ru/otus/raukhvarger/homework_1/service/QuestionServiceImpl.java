@@ -1,17 +1,22 @@
 package ru.otus.raukhvarger.homework_1.service;
 
-import ru.otus.raukhvarger.homework_1.Main;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ru.otus.raukhvarger.homework_1.domain.Person;
-import ru.otus.raukhvarger.homework_1.domain.answers.Answer;
 import ru.otus.raukhvarger.homework_1.domain.Question;
+import ru.otus.raukhvarger.homework_1.domain.answers.Answer;
 import ru.otus.raukhvarger.homework_1.domain.answers.AnswerType;
 import ru.otus.raukhvarger.homework_1.exeptions.FailedParsingException;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class QuestionServiceImpl implements QuestionService {
+
+    static final Logger logger = LogManager.getLogger(QuestionServiceImpl.class);
 
     private final ParserService parserService;
     private final LoaderService loaderService;
@@ -57,7 +62,7 @@ public class QuestionServiceImpl implements QuestionService {
                     answer = parserService.parseAnswer(question.getType(), answerString);
                     break;
                 } catch (FailedParsingException e) {
-                    Main.log("ERROR", "Failed input, please repeat");
+                    logger.error("Failed input, please repeat");
                 }
             }
             return Collections.singletonMap(question, question.getTrueAnswer().checkAnswer(answer));
