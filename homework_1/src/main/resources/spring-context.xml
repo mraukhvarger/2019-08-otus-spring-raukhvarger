@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="classpath:application.properties"/>
+
+    <bean id="parserService" class="ru.otus.raukhvarger.homework_1.service.ParserServiceImpl" />
+
+    <bean id="loaderService" class="ru.otus.raukhvarger.homework_1.service.LoaderServiceImpl">
+        <constructor-arg name="answersFile" value="${answerFile}" />
+        <constructor-arg name="parser" ref="parserService" />
+    </bean>
+
+    <bean id="questionService" class="ru.otus.raukhvarger.homework_1.service.QuestionServiceImpl">
+        <constructor-arg name="parserService" ref="parserService" />
+        <constructor-arg name="loaderService" ref="loaderService" />
+    </bean>
+
+    <bean id="main" class="ru.otus.raukhvarger.homework_1.Main">
+        <constructor-arg name="questionService" ref="questionService" />
+    </bean>
+
+</beans>
