@@ -1,0 +1,5 @@
+How much will 2 + 2 * 2?,INTEGER,A:8;B:6;C:sqrt(-1),B
+What Russian Tsar was called Terrible?,INTEGER,A:Ivan;B:Petr;C:Pavel,A
+Which of these games are RPGs?,INTEGER_LIST,1:The Witcher;2:TES V Skyrim;3:X-COM;4:Age of Empires,1;2
+What is the best programming language?,STRING,,Java
+Maven or gradle?,STRING,,Gradle
