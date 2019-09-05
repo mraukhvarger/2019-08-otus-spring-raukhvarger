@@ -1,5 +1,8 @@
 package ru.otus.raukhvarger.homework_1.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import ru.otus.raukhvarger.homework_1.config.MessageSource;
 import ru.otus.raukhvarger.homework_1.domain.Question;
 import ru.otus.raukhvarger.homework_1.domain.answers.Answer;
 import ru.otus.raukhvarger.homework_1.domain.answers.AnswerType;
@@ -8,9 +11,24 @@ import ru.otus.raukhvarger.homework_1.exeptions.ParserNotFoundException;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
+@Service
 public class ParserServiceImpl implements ParserService {
+
+    private final MessageSource ms;
+
+    private Function<String, String> i18n;
+
+    private Function<String[], String[]> i18nList;
+
+    @Autowired
+    public ParserServiceImpl(MessageSource ms) {
+        this.ms = ms;
+        i18n = ms::get;
+        i18nList = strs -> Arrays.stream(strs).map(s -> i18n.apply(s)).toArray(String[]::new);
+    }
 
     @Override
     public Question parseQuestion(String s) throws ParserNotFoundException, FailedParsingException {
@@ -72,11 +90,12 @@ public class ParserServiceImpl implements ParserService {
             try {
                 List<Answer> answers = Arrays.stream(answersString.split(";"))
                         .map(s -> s.split(":"))
-                        .map(strs -> Answer.getInstance(AnswerType.INTEGER, strs[1], strs[0]))
+//                        .map(strs -> i18nList.apply(strs))
+                        .map(strs -> Answer.getInstance(AnswerType.INTEGER, i18n.apply(strs[1]), strs[0]))
                         .collect(Collectors.toList());
 
                 Answer answer = Answer.getInstance(AnswerType.INTEGER, "", trueAnswerString);
-                return new Question(questionString, answers, answer);
+                return new Question(i18n.apply(questionString), answers, answer);
             } catch (Throwable e) {
                 throw new FailedParsingException();
             }
@@ -93,7 +112,7 @@ public class ParserServiceImpl implements ParserService {
             try {
                 List<Answer> answers = Arrays.stream(answersString.split(";"))
                         .map(s -> s.split(":"))
-                        .map(strs -> Answer.getInstance(AnswerType.INTEGER, strs[1], strs[0]))
+                        .map(strs -> Answer.getInstance(AnswerType.INTEGER, i18n.apply(strs[1]), strs[0]))
                         .collect(Collectors.toList());
 
                 Answer answer = Answer.getInstance(AnswerType.INTEGER_LIST,
@@ -101,7 +120,7 @@ public class ParserServiceImpl implements ParserService {
                         Arrays.stream(trueAnswerString.split(";"))
                                 .map(Integer::valueOf)
                                 .collect(Collectors.toList()));
-                return new Question(questionString, answers, answer);
+                return new Question(i18n.apply(questionString), answers, answer);
             } catch (Throwable e) {
                 throw new FailedParsingException();
             }
@@ -117,11 +136,11 @@ public class ParserServiceImpl implements ParserService {
         public Question parse(String questionString, String answersString, String trueAnswerString) throws FailedParsingException {
             try {
                 List<Answer> answers = Arrays.stream(answersString.split(";"))
-                        .map(str -> Answer.getInstance(AnswerType.STRING, str, str))
+                        .map(str -> Answer.getInstance(AnswerType.STRING, str, i18n.apply(str)))
                         .collect(Collectors.toList());
 
-                Answer answer = Answer.getInstance(AnswerType.STRING, "", trueAnswerString);
-                return new Question(questionString, answers, answer);
+                Answer answer = Answer.getInstance(AnswerType.STRING, "", i18n.apply(trueAnswerString));
+                return new Question(i18n.apply(questionString), answers, answer);
             } catch (Throwable e) {
                 throw new FailedParsingException();
             }

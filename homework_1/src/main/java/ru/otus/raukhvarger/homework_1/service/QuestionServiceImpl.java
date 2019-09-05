@@ -2,24 +2,26 @@ package ru.otus.raukhvarger.homework_1.service;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import ru.otus.raukhvarger.homework_1.config.MessageSource;
 import ru.otus.raukhvarger.homework_1.domain.Person;
 import ru.otus.raukhvarger.homework_1.domain.Question;
 import ru.otus.raukhvarger.homework_1.domain.answers.Answer;
 import ru.otus.raukhvarger.homework_1.domain.answers.AnswerType;
 import ru.otus.raukhvarger.homework_1.exeptions.FailedParsingException;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
+@Service
 public class QuestionServiceImpl implements QuestionService {
 
     static final Logger logger = LogManager.getLogger(QuestionServiceImpl.class);
 
     private final ParserService parserService;
     private final LoaderService loaderService;
+    private final MessageSource ms;
 
     private Scanner scanner = new Scanner(System.in);
 
@@ -27,16 +29,18 @@ public class QuestionServiceImpl implements QuestionService {
     private List<Question> questions;
     private List<Map<Question, Boolean>> results;
 
-    public QuestionServiceImpl(ParserService parserService, LoaderService loaderService) {
+    @Autowired
+    public QuestionServiceImpl(MessageSource ms, ParserService parserService, LoaderService loaderService) {
+        this.ms = ms;
         this.parserService = parserService;
         this.loaderService = loaderService;
     }
 
     @Override
     public void pleaseInputFIO() {
-        System.out.print("Your first name: ");
+        print(ms.get("pleaseInput.firstName") + ": ");
         String first = scanner.next();
-        System.out.print("Your last name: ");
+        print(ms.get("pleaseInput.lastName") + ": ");
         String last = scanner.next();
 
         person = new Person(first, last);
@@ -46,13 +50,13 @@ public class QuestionServiceImpl implements QuestionService {
     public void pleaseInputAnswer() {
         questions = loaderService.loadQuestions();
         results = questions.stream().map(question -> {
-            System.out.println(question.getQuestion());
-            System.out.println(getPrintableQuestion(question));
+            println(question.getQuestion());
+            println(getPrintableQuestion(question));
             question.getAnswers().forEach(answer -> {
-                System.out.print(answer.getAnswerString());
+                print(answer.getAnswerString());
                 if (!answer.getType().equals(AnswerType.STRING)) {
-                    System.out.print(" - ");
-                    System.out.println(answer.getValue());
+                    print(" - ");
+                    println(answer.getValue());
                 }
             });
             Answer answer = null;
@@ -62,7 +66,7 @@ public class QuestionServiceImpl implements QuestionService {
                     answer = parserService.parseAnswer(question.getType(), answerString);
                     break;
                 } catch (FailedParsingException e) {
-                    logger.error("Failed input, please repeat");
+                    logger.error(ms.get("error.failedInput"));
                 }
             }
             return Collections.singletonMap(question, question.getTrueAnswer().checkAnswer(answer));
@@ -71,10 +75,10 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public void printResults() {
-        System.out.println(String.format("Result for '%s %s'", person.getFirstName(), person.getLastName()));
+        println(String.format("Result for '%s %s'", person.getFirstName(), person.getLastName()));
 
         results.forEach(r -> {
-            System.out.println(String.format("Question: '%s', result: '%s'",
+            println(String.format("Question: '%s', result: '%s'",
                     r.entrySet().iterator().next().getKey().getQuestion(),
                     r.entrySet().iterator().next().getValue()));
         });
@@ -82,16 +86,46 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public String getPrintableQuestion(Question question) {
-        String printableQuestion = "Please, input answer ";
         switch (question.getType()) {
             case INTEGER:
-                return printableQuestion + "(one selection)";
+                return ms.get("pleaseInput.answer", ms.get("pleaseInput.oneSelection"));
             case INTEGER_LIST:
-                return printableQuestion + "(many selections, with ',' separator)";
+                return ms.get("pleaseInput.answer", ms.get("pleaseInput.manySelection"));
             case STRING:
-                return printableQuestion + "(text)";
+                return ms.get("pleaseInput.answer", ms.get("pleaseInput.text"));
         }
         return null;
+    }
+
+    @Override
+    public void pleaseSelectLanguage() {
+        println(ms.get("pleaseInput.language"));
+        println("Русский - 1");
+        println("English - 2");
+        while (true) {
+            try {
+                Integer answer = Integer.parseInt(scanner.next());
+                switch (answer) {
+                    case 1:
+                        Locale.setDefault(new Locale("ru"));
+                        break;
+                    case 2:
+                        Locale.setDefault(new Locale("en"));
+                        break;
+                }
+                break;
+            } catch (Throwable e) {
+                logger.error(ms.get("error.failedInput"));
+            }
+        }
+    }
+
+    void print(Object s) {
+        System.out.print(String.valueOf(s));
+    }
+
+    void println(Object s) {
+        System.out.println(String.valueOf(s));
     }
 
 }
