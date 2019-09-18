@@ -6,13 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import ru.otus.raukhvarger.homework_3.config.AppConfiguration;
-import ru.otus.raukhvarger.homework_3.config.ExcludeFromTest;
 import ru.otus.raukhvarger.homework_3.service.QuestionService;
 
 import javax.annotation.PostConstruct;
 
 @SpringBootApplication(scanBasePackageClasses = {AppConfiguration.class})
-//@ExcludeFromTest
 public class Main {
 
     static final Logger logger = LogManager.getLogger(Main.class);
@@ -35,11 +33,6 @@ public class Main {
 
     public static void main(String args[]) {
         SpringApplication.run(Main.class, args);
-
-
-//        ApplicationContext context = new AnnotationConfigApplicationContext(Main.class);
-//        Main main = context.getBean(Main.class);
-//        main.start();
     }
 
 }

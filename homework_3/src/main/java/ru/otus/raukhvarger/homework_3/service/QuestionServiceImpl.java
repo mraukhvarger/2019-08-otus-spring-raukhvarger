@@ -4,7 +4,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.otus.raukhvarger.homework_3.config.ExcludeFromTest;
 import ru.otus.raukhvarger.homework_3.config.MessageSource;
 import ru.otus.raukhvarger.homework_3.domain.Person;
 import ru.otus.raukhvarger.homework_3.domain.Question;
