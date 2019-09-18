@@ -1,0 +1,5 @@
+q#1,INTEGER,1:q#1.a#1;2:q#1.a#2;3:q#1.a#3,2
+q#2,INTEGER,1:q#2.a#1;2:q#2.a#2;3:q#2.a#3,1
+q#3,INTEGER_LIST,1:q#3.a#1;2:q#3.a#2;3:q#3.a#3;4:q#3.a#4,1;2
+q#4,STRING,,q#4.a
+q#5,STRING,,q#5.a
