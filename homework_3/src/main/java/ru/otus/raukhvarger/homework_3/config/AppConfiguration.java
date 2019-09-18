@@ -10,7 +10,9 @@ import java.util.Locale;
 
 @Configuration
 @PropertySource("classpath:application.properties")
-@ComponentScan(basePackages = {"ru.otus.raukhvarger.homework_3.service", "ru.otus.raukhvarger.homework_3.config"})
+@ComponentScan(basePackages = {"ru.otus.raukhvarger.homework_3.service",
+        "ru.otus.raukhvarger.homework_3.config",
+        "ru.otus.raukhvarger.homework_3.shell"})
 public class AppConfiguration {
 
     @Bean
