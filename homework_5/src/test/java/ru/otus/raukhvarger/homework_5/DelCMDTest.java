@@ -2,7 +2,7 @@ package ru.otus.raukhvarger.homework_5;
 
 import org.junit.jupiter.api.*;
 
-@DisplayName("Команды обновления")
+@DisplayName("Команды удаления")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class DelCMDTest extends RootTest {
 
