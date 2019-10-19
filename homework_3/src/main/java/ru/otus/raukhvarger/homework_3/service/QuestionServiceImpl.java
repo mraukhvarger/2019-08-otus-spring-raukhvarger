@@ -3,8 +3,8 @@ package ru.otus.raukhvarger.homework_3.service;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
-import ru.otus.raukhvarger.homework_3.config.MessageSource;
 import ru.otus.raukhvarger.homework_3.domain.Person;
 import ru.otus.raukhvarger.homework_3.domain.Question;
 import ru.otus.raukhvarger.homework_3.domain.answers.Answer;
@@ -21,7 +21,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     private final ParserService parserService;
     private final LoaderService loaderService;
-    private final MessageSource ms;
+    private final LocalizationService ms;
 
     private Scanner scanner = new Scanner(System.in);
 
@@ -30,7 +30,7 @@ public class QuestionServiceImpl implements QuestionService {
     private List<Map<Question, Boolean>> results;
 
     @Autowired
-    public QuestionServiceImpl(MessageSource ms, ParserService parserService, LoaderService loaderService) {
+    public QuestionServiceImpl(LocalizationService ms, ParserService parserService, LoaderService loaderService) {
         this.ms = ms;
         this.parserService = parserService;
         this.loaderService = loaderService;

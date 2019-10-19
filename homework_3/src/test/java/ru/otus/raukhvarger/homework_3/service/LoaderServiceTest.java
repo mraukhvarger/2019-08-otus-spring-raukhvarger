@@ -1,3 +1,5 @@
+package ru.otus.raukhvarger.homework_3.service;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -8,9 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import ru.otus.raukhvarger.homework_3.config.MessageSource;
 import ru.otus.raukhvarger.homework_3.domain.Question;
-import ru.otus.raukhvarger.homework_3.service.*;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ import java.util.List;
 class LoaderServiceTest extends ParentTestContext {
 
     @Configuration
-    @Import(ParentTestContext.class)
+    @Import({ParentTestContext.class, ParserServiceImpl.class, LoaderServiceImpl.class})
     static class Config {
 
         @Bean
@@ -31,16 +31,6 @@ class LoaderServiceTest extends ParentTestContext {
                     "q3,STRING,,a1";
 
             return new ResourceStreamStringImpl(data);
-        }
-
-        @Bean
-        ParserService ps(MessageSource ms) {
-            return new ParserServiceImpl(ms);
-        }
-
-        @Bean
-        LoaderService ls(ParserService ps, ResourceStream rs) {
-            return new LoaderServiceImpl(rs, ps);
         }
 
     }

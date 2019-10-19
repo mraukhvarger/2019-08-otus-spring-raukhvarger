@@ -1,21 +1,19 @@
+package ru.otus.raukhvarger.homework_3.service;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import ru.otus.raukhvarger.homework_3.config.MessageSource;
 import ru.otus.raukhvarger.homework_3.domain.Question;
 import ru.otus.raukhvarger.homework_3.domain.answers.Answer;
 import ru.otus.raukhvarger.homework_3.domain.answers.AnswerType;
 import ru.otus.raukhvarger.homework_3.exeptions.FailedParsingException;
 import ru.otus.raukhvarger.homework_3.exeptions.ParserNotFoundException;
-import ru.otus.raukhvarger.homework_3.service.ParserService;
-import ru.otus.raukhvarger.homework_3.service.ParserServiceImpl;
 
 import java.util.List;
 
@@ -25,15 +23,8 @@ import java.util.List;
 class ParserServiceTest {
 
     @Configuration
-    @Import(ParentTestContext.class)
-    static class Config {
-
-        @Bean
-        ParserService ps(MessageSource ms) {
-            return new ParserServiceImpl(ms);
-        }
-
-    }
+    @Import({ParentTestContext.class, ParserServiceImpl.class})
+    static class Config { }
 
     @Autowired
     ParserService parserService;
