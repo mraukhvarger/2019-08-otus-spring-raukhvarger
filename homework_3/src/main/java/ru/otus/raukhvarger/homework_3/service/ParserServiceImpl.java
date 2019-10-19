@@ -2,7 +2,6 @@ package ru.otus.raukhvarger.homework_3.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.otus.raukhvarger.homework_3.config.MessageSource;
 import ru.otus.raukhvarger.homework_3.domain.Question;
 import ru.otus.raukhvarger.homework_3.domain.answers.Answer;
 import ru.otus.raukhvarger.homework_3.domain.answers.AnswerType;
@@ -17,17 +16,11 @@ import java.util.stream.Collectors;
 @Service
 public class ParserServiceImpl implements ParserService {
 
-    private final MessageSource ms;
-
-    private Function<String, String> i18n;
-
-    private Function<String[], String[]> i18nList;
+    private final LocalizationService ms;
 
     @Autowired
-    public ParserServiceImpl(MessageSource ms) {
+    public ParserServiceImpl(LocalizationService ms) {
         this.ms = ms;
-        i18n = ms::get;
-        i18nList = strs -> Arrays.stream(strs).map(s -> i18n.apply(s)).toArray(String[]::new);
     }
 
     @Override
@@ -91,11 +84,11 @@ public class ParserServiceImpl implements ParserService {
                 List<Answer> answers = Arrays.stream(answersString.split(";"))
                         .map(s -> s.split(":"))
 //                        .map(strs -> i18nList.apply(strs))
-                        .map(strs -> Answer.getInstance(AnswerType.INTEGER, i18n.apply(strs[1]), strs[0]))
+                        .map(strs -> Answer.getInstance(AnswerType.INTEGER, ms.get(strs[1]), strs[0]))
                         .collect(Collectors.toList());
 
                 Answer answer = Answer.getInstance(AnswerType.INTEGER, "", trueAnswerString);
-                return new Question(i18n.apply(questionString), answers, answer);
+                return new Question(ms.get(questionString), answers, answer);
             } catch (Throwable e) {
                 throw new FailedParsingException();
             }
@@ -112,7 +105,7 @@ public class ParserServiceImpl implements ParserService {
             try {
                 List<Answer> answers = Arrays.stream(answersString.split(";"))
                         .map(s -> s.split(":"))
-                        .map(strs -> Answer.getInstance(AnswerType.INTEGER, i18n.apply(strs[1]), strs[0]))
+                        .map(strs -> Answer.getInstance(AnswerType.INTEGER, ms.get(strs[1]), strs[0]))
                         .collect(Collectors.toList());
 
                 Answer answer = Answer.getInstance(AnswerType.INTEGER_LIST,
@@ -120,7 +113,7 @@ public class ParserServiceImpl implements ParserService {
                         Arrays.stream(trueAnswerString.split(";"))
                                 .map(Integer::valueOf)
                                 .collect(Collectors.toList()));
-                return new Question(i18n.apply(questionString), answers, answer);
+                return new Question(ms.get(questionString), answers, answer);
             } catch (Throwable e) {
                 throw new FailedParsingException();
             }
@@ -136,11 +129,11 @@ public class ParserServiceImpl implements ParserService {
         public Question parse(String questionString, String answersString, String trueAnswerString) throws FailedParsingException {
             try {
                 List<Answer> answers = Arrays.stream(answersString.split(";"))
-                        .map(str -> Answer.getInstance(AnswerType.STRING, str, i18n.apply(str)))
+                        .map(str -> Answer.getInstance(AnswerType.STRING, str, ms.get(str)))
                         .collect(Collectors.toList());
 
-                Answer answer = Answer.getInstance(AnswerType.STRING, "", i18n.apply(trueAnswerString));
-                return new Question(i18n.apply(questionString), answers, answer);
+                Answer answer = Answer.getInstance(AnswerType.STRING, "", ms.get(trueAnswerString));
+                return new Question(ms.get(questionString), answers, answer);
             } catch (Throwable e) {
                 throw new FailedParsingException();
             }

@@ -3,6 +3,7 @@ package ru.otus.raukhvarger.homework_3.service;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import ru.otus.raukhvarger.homework_3.domain.Question;
 import ru.otus.raukhvarger.homework_3.exeptions.FailedParsingException;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Scope("prototype")
 public class LoaderServiceImpl implements LoaderService {
 
     static final Logger logger = LogManager.getLogger(LoaderServiceImpl.class);
@@ -21,7 +23,7 @@ public class LoaderServiceImpl implements LoaderService {
     private final ResourceStream resourceStream;
     private final ParserService parser;
 
-    private List<Question> questions;
+//    private List<Question> questions;
 
     @Autowired
     public LoaderServiceImpl(ResourceStream resourceStream, ParserService parser) {
@@ -31,10 +33,10 @@ public class LoaderServiceImpl implements LoaderService {
 
     @Override
     public List<Question> loadQuestions() {
-        if (questions == null) {
+//        if (questions == null) {
             BufferedReader reader = new BufferedReader(new InputStreamReader(resourceStream.getStream()));
-            questions = reader.lines().map(this::convertStringToQuestion).collect(Collectors.toList());
-        }
+            List<Question> questions = reader.lines().map(this::convertStringToQuestion).collect(Collectors.toList());
+//        }
         return questions;
     }
 
