@@ -4,13 +4,13 @@ import ru.otus.raukhvarger.homework_3.domain.Question;
 
 public interface QuestionService {
 
-    void pleaseInputFIO();
+    void askForFullName();
 
-    void pleaseInputAnswer();
+    void askForAnswers();
 
     void printResults();
 
     String getPrintableQuestion(Question question);
 
-    void pleaseSelectLanguage();
+    void askForLanguage();
 }
