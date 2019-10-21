@@ -10,7 +10,6 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @ToString
-//@RequiredArgsConstructor
 public class GenreEntity {
 
     Long id;

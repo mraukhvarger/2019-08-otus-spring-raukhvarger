@@ -8,7 +8,6 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-//@RequiredArgsConstructor
 @Builder
 @ToString
 public class BookEntity {

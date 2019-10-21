@@ -3,18 +3,15 @@ package ru.otus.raukhvarger.homework_5.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import ru.otus.raukhvarger.homework_5.entitiy.AuthorEntity;
 import ru.otus.raukhvarger.homework_5.entitiy.BookEntity;
 import ru.otus.raukhvarger.homework_5.entitiy.GenreEntity;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
 
 @Configuration
 public class Config {
