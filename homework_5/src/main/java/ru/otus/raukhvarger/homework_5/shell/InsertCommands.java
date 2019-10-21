@@ -5,9 +5,9 @@ import org.springframework.shell.Availability;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellMethodAvailability;
-import ru.otus.raukhvarger.homework_5.dao.IAuthorRepository;
-import ru.otus.raukhvarger.homework_5.dao.IBookRepository;
-import ru.otus.raukhvarger.homework_5.dao.IGenreRepository;
+import ru.otus.raukhvarger.homework_5.dao.AuthorRepository;
+import ru.otus.raukhvarger.homework_5.dao.BookRepository;
+import ru.otus.raukhvarger.homework_5.dao.GenreRepository;
 import ru.otus.raukhvarger.homework_5.entitiy.AuthorEntity;
 import ru.otus.raukhvarger.homework_5.entitiy.BookEntity;
 import ru.otus.raukhvarger.homework_5.entitiy.GenreEntity;
@@ -19,15 +19,15 @@ import java.util.Optional;
 @ShellComponent
 public class InsertCommands {
 
-    private final IAuthorRepository authorRepository;
-    private final IBookRepository bookRepository;
-    private final IGenreRepository genreRepository;
+    private final AuthorRepository authorRepository;
+    private final BookRepository bookRepository;
+    private final GenreRepository genreRepository;
     private final MainCommands mainCommands;
     
     private static final String GROUP = "(3) Создание";
 
     @Autowired
-    public InsertCommands(IAuthorRepository authorRepository, IBookRepository bookRepository, IGenreRepository genreRepository, MainCommands mainCommands) {
+    public InsertCommands(AuthorRepository authorRepository, BookRepository bookRepository, GenreRepository genreRepository, MainCommands mainCommands) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
         this.genreRepository = genreRepository;

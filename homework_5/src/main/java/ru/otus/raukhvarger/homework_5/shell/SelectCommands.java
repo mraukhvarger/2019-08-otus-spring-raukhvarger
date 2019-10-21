@@ -5,9 +5,9 @@ import org.springframework.shell.Availability;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellMethodAvailability;
-import ru.otus.raukhvarger.homework_5.dao.IAuthorRepository;
-import ru.otus.raukhvarger.homework_5.dao.IBookRepository;
-import ru.otus.raukhvarger.homework_5.dao.IGenreRepository;
+import ru.otus.raukhvarger.homework_5.dao.AuthorRepository;
+import ru.otus.raukhvarger.homework_5.dao.BookRepository;
+import ru.otus.raukhvarger.homework_5.dao.GenreRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,15 +16,15 @@ import java.util.stream.Collectors;
 @ShellComponent
 public class SelectCommands {
 
-    private final IAuthorRepository authorRepository;
-    private final IBookRepository bookRepository;
-    private final IGenreRepository genreRepository;
+    private final AuthorRepository authorRepository;
+    private final BookRepository bookRepository;
+    private final GenreRepository genreRepository;
     private final MainCommands mainCommands;
 
     private static final String GROUP = "(2) Выборка";
 
     @Autowired
-    public SelectCommands(IAuthorRepository authorRepository, IBookRepository bookRepository, IGenreRepository genreRepository, MainCommands mainCommands) {
+    public SelectCommands(AuthorRepository authorRepository, BookRepository bookRepository, GenreRepository genreRepository, MainCommands mainCommands) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
         this.genreRepository = genreRepository;
