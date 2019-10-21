@@ -4,7 +4,7 @@ import org.junit.jupiter.api.*;
 
 @DisplayName("Команды удаления")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class DelCMDTest extends RootTest {
+public class DeleteCommandsTest extends RootTest {
 
     Integer author_1;
     Integer book_1;

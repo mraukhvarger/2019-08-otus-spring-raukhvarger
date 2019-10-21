@@ -5,11 +5,9 @@ import org.springframework.shell.Availability;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellMethodAvailability;
-import ru.otus.raukhvarger.homework_5.dao.IAuthorAndBookRepository;
 import ru.otus.raukhvarger.homework_5.dao.IAuthorRepository;
 import ru.otus.raukhvarger.homework_5.dao.IBookRepository;
 import ru.otus.raukhvarger.homework_5.dao.IGenreRepository;
-import ru.otus.raukhvarger.homework_5.entitiy.GenreEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,20 +16,18 @@ import java.util.stream.Collectors;
 @ShellComponent
 public class SelectCommands {
 
-    private final IAuthorAndBookRepository ab;
-    private final IAuthorRepository a;
-    private final IBookRepository b;
-    private final IGenreRepository g;
+    private final IAuthorRepository authorRepository;
+    private final IBookRepository bookRepository;
+    private final IGenreRepository genreRepository;
     private final MainCommands mainCommands;
 
     private static final String GROUP = "(2) Выборка";
 
     @Autowired
-    public SelectCommands(IAuthorAndBookRepository ab, IAuthorRepository a, IBookRepository b, IGenreRepository g, MainCommands mainCommands) {
-        this.ab = ab;
-        this.a = a;
-        this.b = b;
-        this.g = g;
+    public SelectCommands(IAuthorRepository authorRepository, IBookRepository bookRepository, IGenreRepository genreRepository, MainCommands mainCommands) {
+        this.authorRepository = authorRepository;
+        this.bookRepository = bookRepository;
+        this.genreRepository = genreRepository;
         this.mainCommands = mainCommands;
     }
 
@@ -39,11 +35,11 @@ public class SelectCommands {
     @ShellMethodAvailability("check")
     public List<String> authorWithBooks(String lastName) {
         List<String> result = new ArrayList<>();
-        a.findAllByLastNameLike(lastName).stream().forEach(author -> {
+        authorRepository.findAllByLastNameLike(lastName).stream().forEach(author -> {
             result.add(String.format("Автор -- %s %s (%s)", author.getFirstName(), author.getLastName(), author.getId()));
-            result.add("Книги -- " + ab.findAllBooksByAuthorId(author.getId()).stream()
+            result.add("Книги -- " + author.getBooks().stream()
                     .map(m -> "[Название: " + m.getCaption()
-                            + (m.getIdGenre() != null ? "; Жанр: " + g.findOne(m.getIdGenre()).orElse(new GenreEntity("error: Жанр не найден")).getGenre() : "")
+                            + "; Жанр: " + (m.getGenre() != null ? m.getGenre().getGenre() : "")
                             + "]")
                     .collect(Collectors.joining(",\n\t")));
             result.add("");
@@ -57,9 +53,9 @@ public class SelectCommands {
     public List<String> bookWithAuthors(String caption) {
         List<String> result = new ArrayList<>();
 
-        b.findAllByCaptionLike(caption).stream().forEach(book -> {
+        bookRepository.findAllByCaptionLike(caption).stream().forEach(book -> {
             result.add(String.format("Книга -- %s (%s)", book.getCaption(), book.getId()));
-            result.add("Авторы -- " + ab.findAllAuthorsByBookId(book.getId()).stream()
+            result.add("Авторы -- " + book.getAuthors().stream()
                     .map(m -> String.format("%s %s", m.getFirstName(), m.getLastName()))
                     .collect(Collectors.joining(",\n\t")));
             result.add("");
@@ -73,9 +69,9 @@ public class SelectCommands {
     public List<String> booksByGenres(String genre) {
         List<String> result = new ArrayList<>();
 
-        g.findAllByGenreLike(genre).stream().forEach(gn -> {
+        genreRepository.findAllByGenreLike(genre).stream().forEach(gn -> {
             result.add(String.format("Жанр -- %s (%s)", gn.getGenre(), gn.getId()));
-            result.add("Кники -- " + b.findAllByGenreEq(gn.getId()).stream()
+            result.add("Кники -- " + gn.getBooks().stream()
                     .map(bk -> String.format("%s (%s)", bk.getCaption(), bk.getId()))
                     .collect(Collectors.joining(",\n\t")));
         });
@@ -88,7 +84,7 @@ public class SelectCommands {
     public List<String> books() {
         List<String> result = new ArrayList<>();
 
-        b.findAll().stream().
+        bookRepository.findAll().stream().
                 forEach(m -> {
                     result.add(String.format("Книга -- %s (%s)", m.getCaption(), m.getId()));
                     result.add("");
@@ -102,7 +98,7 @@ public class SelectCommands {
     public List<String> authors() {
         List<String> result = new ArrayList<>();
 
-        a.findAll().stream().
+        authorRepository.findAll().stream().
                 forEach(m -> {
                     result.add(String.format("Автор -- %s %s (%s)", m.getFirstName(), m.getLastName(), m.getId()));
                     result.add("");
@@ -116,7 +112,7 @@ public class SelectCommands {
     public List<String> genres() {
         List<String> result = new ArrayList<>();
 
-        g.findAll().stream().
+        genreRepository.findAll().stream().
                 forEach(m -> {
                     result.add(String.format("Жанр -- %s (%s)", m.getGenre(), m.getId()));
                     result.add("");

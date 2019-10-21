@@ -6,7 +6,7 @@ import java.io.IOException;
 
 @DisplayName("Команды обновления")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class UpdCMDTest extends RootTest {
+public class UpdateCommandsTest extends RootTest {
 
     Integer author_1;
     Integer book_1;

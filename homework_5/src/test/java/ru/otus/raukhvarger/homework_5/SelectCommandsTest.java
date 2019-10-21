@@ -6,7 +6,7 @@ import java.io.IOException;
 
 @DisplayName("Команды выборки")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class GetCMDTest extends RootTest {
+public class SelectCommandsTest extends RootTest {
 
     Integer author_1;
     Integer author_2;

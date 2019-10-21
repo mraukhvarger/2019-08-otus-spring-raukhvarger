@@ -1,6 +1,12 @@
 CREATE TABLE authors_and_books_table (
-    id INT AUTO_INCREMENT,
-    id_author INT NOT NULL,
-    id_book INT NOT NULL
+    id_author INT8 NOT NULL,
+    id_book INT8 NOT NULL,
+    CONSTRAINT fk_author_id
+        FOREIGN KEY (id_author)
+            REFERENCES authors_table (id)
+            ON DELETE CASCADE,
+    CONSTRAINT fk_book_id
+        FOREIGN KEY (id_book)
+            REFERENCES books_table (id)
+            ON DELETE CASCADE,
 );
-ALTER TABLE authors_and_books_table ADD PRIMARY KEY (id, id_author, id_book)

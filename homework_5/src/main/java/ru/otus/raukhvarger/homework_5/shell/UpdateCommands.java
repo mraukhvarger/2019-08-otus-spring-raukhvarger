@@ -5,7 +5,6 @@ import org.springframework.shell.Availability;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellMethodAvailability;
-import ru.otus.raukhvarger.homework_5.dao.IAuthorAndBookRepository;
 import ru.otus.raukhvarger.homework_5.dao.IAuthorRepository;
 import ru.otus.raukhvarger.homework_5.dao.IBookRepository;
 import ru.otus.raukhvarger.homework_5.dao.IGenreRepository;
@@ -18,32 +17,30 @@ import java.util.Optional;
 @ShellComponent
 public class UpdateCommands {
 
-    private final IAuthorAndBookRepository ab;
-    private final IAuthorRepository a;
-    private final IBookRepository b;
-    private final IGenreRepository g;
+    private final IAuthorRepository authorRepository;
+    private final IBookRepository bookRepository;
+    private final IGenreRepository genreRepository;
     private final MainCommands mainCommands;
     
     private static final String GROUP = "(4) Обновление";
 
     @Autowired
-    public UpdateCommands(IAuthorAndBookRepository ab, IAuthorRepository a, IBookRepository b, IGenreRepository g, MainCommands mainCommands) {
-        this.ab = ab;
-        this.a = a;
-        this.b = b;
-        this.g = g;
+    public UpdateCommands(IAuthorRepository authorRepository, IBookRepository bookRepository, IGenreRepository genreRepository, MainCommands mainCommands) {
+        this.authorRepository = authorRepository;
+        this.bookRepository = bookRepository;
+        this.genreRepository = genreRepository;
         this.mainCommands = mainCommands;
     }
 
     @ShellMethod(key = { "updAuthor" }, value = "Обновление данных об автора", group = GROUP)
     @ShellMethodAvailability("check")
-    public String updAuthor(Integer authorId, String firstName, String lastName) {
-        Optional<AuthorEntity> authorOpt = a.findOne(authorId);
+    public String updAuthor(Long authorId, String firstName, String lastName) {
+        Optional<AuthorEntity> authorOpt = authorRepository.findOne(authorId);
         if (authorOpt.isPresent()) {
             AuthorEntity findedAuthor = authorOpt.get();
             findedAuthor.setFirstName(firstName);
             findedAuthor.setLastName(lastName);
-            a.update(findedAuthor);
+            authorRepository.update(findedAuthor);
             return "Ок";
         } else
             return "Автор не найден";
@@ -51,12 +48,12 @@ public class UpdateCommands {
 
     @ShellMethod(key = { "updBook" }, value = "Обновление данных о книге", group = GROUP)
     @ShellMethodAvailability("check")
-    public String updBook(Integer bookId, String caption) {
-        Optional<BookEntity> bookOpt = b.findOne(bookId);
+    public String updBook(Long bookId, String caption) {
+        Optional<BookEntity> bookOpt = bookRepository.findOne(bookId);
         if (bookOpt.isPresent()) {
             BookEntity findedBook = bookOpt.get();
             findedBook.setCaption(caption);
-            b.update(findedBook);
+            bookRepository.update(findedBook);
             return "Ок";
         } else
             return "Книга не найдена";
@@ -64,12 +61,12 @@ public class UpdateCommands {
 
     @ShellMethod(key = { "updGenre" }, value = "Обновление данных о жанре", group = GROUP)
     @ShellMethodAvailability("check")
-    public String updGenre(Integer genreId, String genre) {
-        Optional<GenreEntity> genreOpt = g.findOne(genreId);
+    public String updGenre(Long genreId, String genre) {
+        Optional<GenreEntity> genreOpt = genreRepository.findOne(genreId);
         if (genreOpt.isPresent()) {
             GenreEntity findedGenre = genreOpt.get();
             findedGenre.setGenre(genre);
-            g.update(findedGenre);
+            genreRepository.update(findedGenre);
             return "Ок";
         } else
             return "Книга не найдена";

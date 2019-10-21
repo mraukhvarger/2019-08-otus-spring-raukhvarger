@@ -1,21 +1,23 @@
 package ru.otus.raukhvarger.homework_5.entitiy;
 
 import lombok.*;
-import ru.otus.raukhvarger.homework_5.annotation.Field;
-import ru.otus.raukhvarger.homework_5.annotation.Table;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
-@Table(name = "genres_table")
+@Builder
+@ToString
+//@RequiredArgsConstructor
 public class GenreEntity {
 
-    @Field(name = "id")
-    Integer id;
+    Long id;
 
-    @NonNull
-    @Field(name = "genre")
     String genre;
+
+    @ToString.Exclude
+    List<BookEntity> books = new ArrayList<>();
 
 }

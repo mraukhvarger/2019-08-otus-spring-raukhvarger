@@ -16,9 +16,9 @@ import java.util.regex.Pattern;
 
 @DisplayName("Команды создания")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class NewCMDTest extends RootTest {
+public class InsertCommandsTest extends RootTest {
 
-	@BeforeAll
+	@BeforeEach
 	public void run() {
 		runCommand("new");
 	}
@@ -55,6 +55,10 @@ public class NewCMDTest extends RootTest {
 
         result = runCommand(String.format("addAuthorToBook %s %s", authorId, bookId));
         Assertions.assertTrue(result.contains("Ок"));
+
+        result = runCommand("get");
+        result = runCommand(String.format("byBook %s", "TestBook"));
+        Assertions.assertTrue(result.contains("Test Author"));
     }
 
     @Test
@@ -68,6 +72,10 @@ public class NewCMDTest extends RootTest {
 
         result = runCommand(String.format("addBookToAuthor %s %s", authorId, bookId));
         Assertions.assertTrue(result.contains("Ок"));
+
+        result = runCommand("get");
+        result = runCommand(String.format("byAuthor %s", "Author"));
+        Assertions.assertTrue(result.contains("TestBook"));
     }
 
     @Test
