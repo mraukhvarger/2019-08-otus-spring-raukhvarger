@@ -37,7 +37,7 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public void pleaseInputFIO() {
+    public void askForFullName() {
         print(ms.get("pleaseInput.firstName") + ": ");
         String first = scanner.next();
         print(ms.get("pleaseInput.lastName") + ": ");
@@ -47,7 +47,7 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public void pleaseInputAnswer() {
+    public void askForAnswers() {
         questions = loaderService.loadQuestions();
         results = questions.stream().map(question -> {
             println(question.getQuestion());
@@ -98,10 +98,10 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public void pleaseSelectLanguage() {
+    public void askForLanguage() {
         println(ms.get("pleaseInput.language"));
-        println("Русский - 1");
-        println("English - 2");
+        println(ms.get("russianLanguage"));
+        println(ms.get("englishLanguage"));
         while (true) {
             try {
                 Integer answer = Integer.parseInt(scanner.next());
