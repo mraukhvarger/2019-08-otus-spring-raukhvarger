@@ -1,0 +1,10 @@
+${AnsiColor.BLACK}  _____                        _     ${AnsiColor.BLUE} _                               ${AnsiColor.RED}                          _   _ ${AnsiColor.BLACK}
+${AnsiColor.BLACK} |  __ \                      | |    ${AnsiColor.BLUE}(_)                              ${AnsiColor.RED}                         | | | |${AnsiColor.BLACK}
+${AnsiColor.BLACK} | |__) |  _   _   ___   ___  | | __ ${AnsiColor.BLUE} _    ___        __   __  _ __   ${AnsiColor.RED}  ___   _ __    ___    __| | | |${AnsiColor.BLACK}
+${AnsiColor.BLACK} |  _  /  | | | | / __| / __| | |/ / ${AnsiColor.BLUE}| |  / _ \       \ \ / / | '_ \  ${AnsiColor.RED} / _ \ | '__|  / _ \  / _` | | |${AnsiColor.BLACK}
+${AnsiColor.BLACK} | | \ \  | |_| | \__ \ \__ \ |   <  ${AnsiColor.BLUE}| | |  __/  _     \ V /  | |_) | ${AnsiColor.RED}|  __/ | |    |  __/ | (_| | |_|${AnsiColor.BLACK}
+${AnsiColor.BLACK} |_|  \_\  \__,_| |___/ |___/ |_|\_\ ${AnsiColor.BLUE}|_|  \___| ( )     \_/   | .__/  ${AnsiColor.RED} \___| |_|     \___|  \__,_| (_)${AnsiColor.BLACK}
+${AnsiColor.BLACK}                                     ${AnsiColor.BLUE}           |/            | |     ${AnsiColor.RED}                                ${AnsiColor.BLACK}
+${AnsiColor.BLACK}                                     ${AnsiColor.BLUE}                         |_|     ${AnsiColor.RED}                                ${AnsiColor.BLACK}
+
+${AnsiColor.BLACK}
