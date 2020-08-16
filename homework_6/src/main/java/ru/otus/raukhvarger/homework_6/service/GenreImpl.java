@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.otus.raukhvarger.homework_6.dto.GenreDTO;
 import ru.otus.raukhvarger.homework_6.jpa.entity.GenreEntity;
 import ru.otus.raukhvarger.homework_6.jpa.repository.GenreRepository;
+import ru.otus.raukhvarger.homework_6.utils.EntityConverter;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,21 +24,21 @@ public class GenreImpl implements GenreProvider {
     }
 
     @Override
-    public GenreDTO getById(Integer id) {
+    public GenreDTO getById(Long id) {
         GenreEntity genreEntity = genreRepository.getById(id);
-        return genreEntity != null ? genreEntity.buildDTO() : null;
+        return genreEntity != null ? EntityConverter.buildDTO(genreEntity) : null;
     }
 
     @Override
     public GenreDTO getByName(String name) {
         GenreEntity genreEntity = genreRepository.getByName(name);
-        return genreEntity != null ? genreEntity.buildDTO() : null;
+        return genreEntity != null ? EntityConverter.buildDTO(genreEntity) : null;
     }
 
     @Override
     public GenreDTO getOrCreateByName(String name) {
         if (genreRepository.getByName(name) == null) genreRepository.insert((new GenreDTO(name)).buildJpaEntity());
-        return genreRepository.getByName(name).buildDTO();
+        return EntityConverter.buildDTO(genreRepository.getByName(name));
     }
 
     @Override
@@ -46,14 +47,14 @@ public class GenreImpl implements GenreProvider {
     }
 
     @Override
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         genreRepository.deleteById(id);
     }
 
     @Override
     public List<GenreDTO> getAll() {
         return genreRepository.getAll().stream()
-                .map(g -> g.buildDTO())
+                .map(EntityConverter::buildDTO)
                 .collect(Collectors.toList());
     }
 }

@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.otus.raukhvarger.homework_6.dto.CommentDTO;
 import ru.otus.raukhvarger.homework_6.jpa.entity.CommentEntity;
 import ru.otus.raukhvarger.homework_6.jpa.repository.CommentRepository;
+import ru.otus.raukhvarger.homework_6.utils.EntityConverter;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,15 +23,15 @@ public class CommentImpl implements CommentProvider {
     }
 
     @Override
-    public CommentDTO getById(Integer id) {
+    public CommentDTO getById(Long id) {
         CommentEntity commentEntity = commentRepository.getById(id);
-        return commentEntity != null ? commentEntity.buildDTO() : null;
+        return commentEntity != null ? EntityConverter.buildDTO(commentEntity) : null;
     }
 
     @Override
-    public List<CommentDTO> getByBookId(Integer bookId) {
+    public List<CommentDTO> getByBookId(Long bookId) {
         return commentRepository.getByBookId(bookId).stream()
-                .map(g -> g.buildDTO())
+                .map(EntityConverter::buildDTO)
                 .collect(Collectors.toList());
     }
 
@@ -40,14 +41,14 @@ public class CommentImpl implements CommentProvider {
     }
 
     @Override
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         commentRepository.deleteById(id);
     }
 
     @Override
     public List<CommentDTO> getAll() {
         return commentRepository.getAll().stream()
-                .map(g -> g.buildDTO())
+                .map(EntityConverter::buildDTO)
                 .collect(Collectors.toList());
     }
 }

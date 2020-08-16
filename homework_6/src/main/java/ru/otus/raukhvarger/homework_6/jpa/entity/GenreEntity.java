@@ -18,15 +18,9 @@ public class GenreEntity {
     @Id
     @Column(name = "GENREID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer genreId;
+    private Long genreId;
 
     @Column(name = "GENRENAME")
     private String genreName;
 
-    public GenreDTO buildDTO() {
-        return GenreDTO.builder()
-                .genreId(genreId)
-                .genreName(genreName)
-                .build();
-    }
 }

@@ -5,7 +5,7 @@ import ru.otus.raukhvarger.homework_6.jpa.entity.AuthorEntity;
 import java.util.List;
 
 public interface AuthorRepository {
-    AuthorEntity getById(Integer authorId);
+    AuthorEntity getById(Long authorId);
 
     AuthorEntity getByName(String authorName);
 
@@ -13,7 +13,7 @@ public interface AuthorRepository {
 
     void update(AuthorEntity authorEntity);
 
-    void deleteById(Integer authorId);
+    void deleteById(Long authorId);
 
     List<AuthorEntity> getAll();
 }

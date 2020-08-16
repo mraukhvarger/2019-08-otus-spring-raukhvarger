@@ -3,7 +3,9 @@ package ru.otus.raukhvarger.homework_6.jpa.repository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import ru.otus.raukhvarger.homework_6.jpa.entity.CommentEntity;
 import ru.otus.raukhvarger.homework_6.spring.Application;
 
@@ -13,13 +15,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DisplayName("Test comment repository")
-@SpringBootTest(classes = Application.class)
+@DataJpaTest
+@Import(Configuration.class)
 public class CommentRepositoryImplTest {
     public static final String TEST_NEW_COMMENT_TEXT = "test comment";
-    public static final Integer TEST_EXISTING_COMMENT_ID = 1;
+    public static final Long TEST_EXISTING_COMMENT_ID = 1L;
     public static final String TEST_EXISTING_COMMENT_TEST = "451 градус по фаренгейту, Рэй Брэдбери";
-    public static final Integer TEST_NEW_COMMENT_ID = 7;
-    public static final Integer TEST_EXISTING_BOOK_ID = 1;
+    public static final Long TEST_NEW_COMMENT_ID = 7L;
+    public static final Long TEST_EXISTING_BOOK_ID = 1L;
     @Autowired
     private CommentRepository commentRepository;
 

@@ -19,7 +19,7 @@ public class AuthorEntity {
     @Id
     @Column(name = "AUTHORID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer authorId;
+    private Long authorId;
 
     @Column(name = "AUTHORNAME", length = 1024)
     private String authorName;
@@ -28,10 +28,4 @@ public class AuthorEntity {
     @JoinColumn(name = "AUTHORID", insertable = false, updatable = false)
     private Set<BookEntity> bookEntities;
 
-    public AuthorDTO buildDTO() {
-        return AuthorDTO.builder()
-                .authorId(authorId)
-                .authorName(authorName)
-                .build();
-    }
 }

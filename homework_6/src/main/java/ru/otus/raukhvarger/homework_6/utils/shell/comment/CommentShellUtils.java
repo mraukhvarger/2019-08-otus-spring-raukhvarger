@@ -27,7 +27,7 @@ public class CommentShellUtils implements CommentShellUtilsProvider {
     }
 
     @Override
-    public void create(Integer bookId) {
+    public void create(Long bookId) {
         BookDTO book = bookProvider.getById(bookId);
         if (book != null) {
             ioProvider.print(messageProvider.getMessage("HW.EnterComment"));
@@ -50,7 +50,7 @@ public class CommentShellUtils implements CommentShellUtilsProvider {
     }
 
     @Override
-    public void update(Integer commentId) {
+    public void update(Long commentId) {
         CommentDTO comment = commentProvider.getById(commentId);
         if (comment != null) {
             ioProvider.print(messageProvider.getMessage("HW.EnterNewComment"));
@@ -73,7 +73,7 @@ public class CommentShellUtils implements CommentShellUtilsProvider {
     }
 
     @Override
-    public void browseByBookId(Integer bookId) {
+    public void browseByBookId(Long bookId) {
         if (bookProvider.getById(bookId) != null) {
             List<CommentDTO> bookComments = commentProvider.getByBookId(bookId);
             ioProvider.print(messageProvider.getMessage("HW.Comments"));
@@ -86,7 +86,7 @@ public class CommentShellUtils implements CommentShellUtilsProvider {
     }
 
     @Override
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         CommentDTO comment = commentProvider.getById(id);
         if (comment != null) {
             commentProvider.deleteById(id);

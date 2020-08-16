@@ -11,7 +11,7 @@ import ru.otus.raukhvarger.homework_6.jpa.entity.GenreEntity;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GenreDTO {
-    private Integer genreId;
+    private Long genreId;
     private String genreName;
 
     public GenreDTO(String genreName) {

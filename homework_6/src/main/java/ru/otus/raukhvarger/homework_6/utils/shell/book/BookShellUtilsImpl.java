@@ -54,7 +54,7 @@ public class BookShellUtilsImpl implements BookShellUtilsProvider {
     }
 
     @Override
-    public void getById(Integer bookId) {
+    public void getById(Long bookId) {
         BookDTO book = bookProvider.getById(bookId);
         if (book != null) {
             ioProvider.print(book.toString());
@@ -72,7 +72,7 @@ public class BookShellUtilsImpl implements BookShellUtilsProvider {
     }
 
     @Override
-    public void deleteById(Integer bookId) {
+    public void deleteById(Long bookId) {
         BookDTO book = bookProvider.getById(bookId);
         if (book != null) {
             bookProvider.deleteById(bookId);
@@ -83,7 +83,7 @@ public class BookShellUtilsImpl implements BookShellUtilsProvider {
     }
 
     @Override
-    public void updateById(Integer bookId) {
+    public void updateById(Long bookId) {
         BookDTO book = bookProvider.getById(bookId);
         if (book != null) {
             GenreDTO genre = getGenreForUpdate();

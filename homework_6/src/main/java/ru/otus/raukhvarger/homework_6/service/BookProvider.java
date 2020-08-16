@@ -7,13 +7,13 @@ import java.util.List;
 public interface BookProvider {
     void create(BookDTO book);
 
-    BookDTO getById(Integer id);
+    BookDTO getById(Long id);
 
     List<BookDTO> getByName(String name);
 
     void update(BookDTO book);
 
-    void deleteById(Integer id);
+    void deleteById(Long id);
 
     List<BookDTO> getAll();
 }

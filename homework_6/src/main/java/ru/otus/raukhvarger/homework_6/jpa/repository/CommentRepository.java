@@ -5,15 +5,15 @@ import ru.otus.raukhvarger.homework_6.jpa.entity.CommentEntity;
 import java.util.List;
 
 public interface CommentRepository {
-    CommentEntity getById(Integer bookId);
+    CommentEntity getById(Long bookId);
 
-    List<CommentEntity> getByBookId(Integer bookId);
+    List<CommentEntity> getByBookId(Long bookId);
 
     void insert(CommentEntity commentEntity);
 
     void update(CommentEntity commentEntity);
 
-    void deleteById(Integer commentId);
+    void deleteById(Long commentId);
 
     List<CommentEntity> getAll();
 }

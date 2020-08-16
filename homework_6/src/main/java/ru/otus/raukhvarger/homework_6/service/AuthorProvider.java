@@ -7,7 +7,7 @@ import java.util.List;
 public interface AuthorProvider {
     void create(AuthorDTO author);
 
-    AuthorDTO getById(Integer id);
+    AuthorDTO getById(Long id);
 
     AuthorDTO getByName(String name);
 
@@ -15,7 +15,7 @@ public interface AuthorProvider {
 
     void update(AuthorDTO author);
 
-    void deleteById(Integer id);
+    void deleteById(Long id);
 
     List<AuthorDTO> getAll();
 

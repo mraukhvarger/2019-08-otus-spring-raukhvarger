@@ -3,7 +3,9 @@ package ru.otus.raukhvarger.homework_6.jpa.repository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import ru.otus.raukhvarger.homework_6.jpa.entity.GenreEntity;
 import ru.otus.raukhvarger.homework_6.spring.Application;
 
@@ -11,11 +13,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DisplayName("Test genre repository")
-@SpringBootTest(classes = Application.class)
+@DataJpaTest
+@Import(Configuration.class)
 public class GenreRepositoryImplTest {
     public static final String TEST_NEW_GENRE_NAME = "Стихи";
     public static final String TEST_EXISTING_GENRE_NAME = "Роман";
-    public static final Integer TEST_EXISTING_GENRE_ID = 2;
+    public static final Long TEST_EXISTING_GENRE_ID = 2L;
     @Autowired
     private GenreRepository genreRepository;
 

@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.otus.raukhvarger.homework_6.dto.AuthorDTO;
 import ru.otus.raukhvarger.homework_6.jpa.entity.AuthorEntity;
 import ru.otus.raukhvarger.homework_6.jpa.repository.AuthorRepository;
+import ru.otus.raukhvarger.homework_6.utils.EntityConverter;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,15 +24,15 @@ public class AuthorImpl implements AuthorProvider {
     }
 
     @Override
-    public AuthorDTO getById(Integer id) {
+    public AuthorDTO getById(Long id) {
         AuthorEntity authorEntity = authorRepository.getById(id);
-        return authorEntity != null ? authorEntity.buildDTO() : null;
+        return authorEntity != null ? EntityConverter.buildDTO(authorEntity) : null;
     }
 
     @Override
     public AuthorDTO getByName(String name) {
         AuthorEntity authorEntity = authorRepository.getByName(name);
-        return authorEntity != null ? authorEntity.buildDTO() : null;
+        return authorEntity != null ? EntityConverter.buildDTO(authorEntity) : null;
     }
 
     @Override
@@ -40,10 +41,10 @@ public class AuthorImpl implements AuthorProvider {
         AuthorEntity authorEntity = authorRepository.getByName(name != null ? name.toUpperCase() : null);
         AuthorDTO authorDTO = null;
         if (authorEntity != null) {
-            authorDTO = authorEntity.buildDTO();
+            authorDTO = EntityConverter.buildDTO(authorEntity);
             authorDTO.setBooks(
                     authorEntity.getBookEntities().stream()
-                            .map(b -> b.buildDTO())
+                            .map(EntityConverter::buildDTO)
                             .collect(Collectors.toSet())
             );
         }
@@ -53,7 +54,7 @@ public class AuthorImpl implements AuthorProvider {
     @Override
     public AuthorDTO getOrCreateByName(String name) {
         if (authorRepository.getByName(name) == null) authorRepository.insert((new AuthorDTO(name)).buildJpaEntity());
-        return authorRepository.getByName(name).buildDTO();
+        return EntityConverter.buildDTO(authorRepository.getByName(name));
     }
 
     @Override
@@ -62,14 +63,14 @@ public class AuthorImpl implements AuthorProvider {
     }
 
     @Override
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         authorRepository.deleteById(id);
     }
 
     @Override
     public List<AuthorDTO> getAll() {
         return authorRepository.getAll().stream()
-                .map(a -> a.buildDTO())
+                .map(EntityConverter::buildDTO)
                 .collect(Collectors.toList());
     }
 }

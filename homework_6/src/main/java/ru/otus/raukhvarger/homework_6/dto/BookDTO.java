@@ -11,7 +11,7 @@ import ru.otus.raukhvarger.homework_6.jpa.entity.BookEntity;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BookDTO {
-    private Integer bookId;
+    private Long bookId;
     private String bookName;
     private AuthorDTO author;
     private GenreDTO genre;

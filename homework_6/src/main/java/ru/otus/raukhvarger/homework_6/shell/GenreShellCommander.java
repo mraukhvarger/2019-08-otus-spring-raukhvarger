@@ -24,7 +24,7 @@ public class GenreShellCommander {
     }
 
     @ShellMethod(key = {"gd", "gdel"}, value = "Delete genre by id")
-    public void deleteGenre(Integer genreId) {
+    public void deleteGenre(Long genreId) {
         provider.deleteById(genreId);
     }
 

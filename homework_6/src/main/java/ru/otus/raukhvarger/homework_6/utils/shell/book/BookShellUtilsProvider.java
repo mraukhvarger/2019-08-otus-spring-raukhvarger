@@ -3,13 +3,13 @@ package ru.otus.raukhvarger.homework_6.utils.shell.book;
 public interface BookShellUtilsProvider {
     void create();
 
-    void updateById(Integer id);
+    void updateById(Long id);
 
-    void deleteById(Integer id);
+    void deleteById(Long id);
 
     void getByName(String name);
 
-    void getById(Integer id);
+    void getById(Long id);
 
     void browse();
 

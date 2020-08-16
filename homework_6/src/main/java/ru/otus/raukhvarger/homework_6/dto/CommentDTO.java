@@ -11,7 +11,7 @@ import ru.otus.raukhvarger.homework_6.jpa.entity.CommentEntity;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CommentDTO {
-    private Integer commentId;
+    private Long commentId;
     private BookDTO book;
     private String comment;
 

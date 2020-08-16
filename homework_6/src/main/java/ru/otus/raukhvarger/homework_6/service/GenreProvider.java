@@ -7,7 +7,7 @@ import java.util.List;
 public interface GenreProvider {
     void create(GenreDTO genre);
 
-    GenreDTO getById(Integer id);
+    GenreDTO getById(Long id);
 
     GenreDTO getByName(String name);
 
@@ -15,7 +15,7 @@ public interface GenreProvider {
 
     void update(GenreDTO genre);
 
-    void deleteById(Integer id);
+    void deleteById(Long id);
 
     List<GenreDTO> getAll();
 }

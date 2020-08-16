@@ -17,31 +17,23 @@ public class BookEntity {
     @Id
     @Column(name = "BOOKID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer bookId;
+    private Long bookId;
 
     @Column(name = "BOOKNAME")
     private String bookName;
 
     @Column(name = "AUTHORID")
-    private Integer authorId;
+    private Long authorId;
 
     @Column(name = "GENREID")
-    private Integer genreId;
+    private Long genreId;
 
-    @OneToOne(targetEntity = AuthorEntity.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = AuthorEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "AUTHORID", insertable = false, updatable = false)
     private AuthorEntity authorEntity;
 
-    @OneToOne(targetEntity = GenreEntity.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = GenreEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "GENREID", insertable = false, updatable = false)
     private GenreEntity genreEntity;
 
-    public BookDTO buildDTO() {
-        return BookDTO.builder()
-                .bookId(bookId)
-                .bookName(bookName)
-                .author(authorEntity.buildDTO())
-                .genre(genreEntity.buildDTO())
-                .build();
-    }
 }

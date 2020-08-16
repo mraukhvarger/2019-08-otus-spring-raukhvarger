@@ -18,7 +18,7 @@ public class BookRepositoryImpl implements BookRepository {
     private EntityManager em;
 
     @Override
-    public BookEntity getById(Integer bookId) {
+    public BookEntity getById(Long bookId) {
         return em.find(BookEntity.class, bookId);
     }
 
@@ -47,7 +47,7 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public void deleteById(Integer bookId) {
+    public void deleteById(Long bookId) {
         em.remove(getById(bookId));
     }
 

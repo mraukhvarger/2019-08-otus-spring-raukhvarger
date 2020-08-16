@@ -17,12 +17,12 @@ public class CommentRepositoryImpl implements CommentRepository {
     private EntityManager em;
 
     @Override
-    public CommentEntity getById(Integer commentId) {
+    public CommentEntity getById(Long commentId) {
         return em.find(CommentEntity.class, commentId);
     }
 
     @Override
-    public List<CommentEntity> getByBookId(Integer bookId) {
+    public List<CommentEntity> getByBookId(Long bookId) {
         try {
             TypedQuery<CommentEntity> query = em.createQuery(
                     "select c from CommentEntity c where c.bookId = :bookId order by c.commentId",
@@ -46,7 +46,7 @@ public class CommentRepositoryImpl implements CommentRepository {
     }
 
     @Override
-    public void deleteById(Integer commentId) {
+    public void deleteById(Long commentId) {
         em.remove(getById(commentId));
     }
 

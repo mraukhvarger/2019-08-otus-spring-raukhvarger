@@ -13,7 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuthorDTO {
-    private Integer authorId;
+    private Long authorId;
     private String authorName;
     private Set<BookDTO> books;
 
@@ -21,7 +21,7 @@ public class AuthorDTO {
         this.authorName = authorName;
     }
 
-    public AuthorDTO(Integer authorId, String authorName) {
+    public AuthorDTO(Long authorId, String authorName) {
         this.authorId = authorId;
         this.authorName = authorName;
     }

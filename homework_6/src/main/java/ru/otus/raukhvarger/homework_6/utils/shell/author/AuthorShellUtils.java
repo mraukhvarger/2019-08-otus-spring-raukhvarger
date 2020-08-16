@@ -88,7 +88,7 @@ public class AuthorShellUtils implements ShellUtilsProvider {
     }
 
     @Override
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         AuthorDTO author = authorProvider.getById(id);
         if (author != null) {
             authorProvider.deleteById(id);

@@ -13,17 +13,17 @@ public class CommentShellCommander {
     }
 
     @ShellMethod(key = {"cc", "ccom"}, value = "Create comment on book")
-    public void createComment(Integer bookId) {
+    public void createComment(Long bookId) {
         provider.create(bookId);
     }
 
     @ShellMethod(key = {"cu", "cupd"}, value = "Update comment by id")
-    public void updateComment(Integer id) {
+    public void updateComment(Long id) {
         provider.update(id);
     }
 
     @ShellMethod(key = {"cd", "cdel"}, value = "Delete comment by id")
-    public void deleteComment(Integer id) {
+    public void deleteComment(Long id) {
         provider.deleteById(id);
     }
 
@@ -33,7 +33,7 @@ public class CommentShellCommander {
     }
 
     @ShellMethod(key = {"cbb", "cbl", "cblist"}, value = "Browse comments on book")
-    public void listCommentsOnBook(Integer bookId) {
+    public void listCommentsOnBook(Long bookId) {
         provider.browseByBookId(bookId);
     }
 }

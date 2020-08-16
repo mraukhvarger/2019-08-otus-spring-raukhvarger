@@ -18,12 +18,12 @@ public class BookShellCommander {
     }
 
     @ShellMethod(key = {"bu", "bupd"}, value = "Update book by id")
-    public void updateBook(Integer bookId) {
+    public void updateBook(Long bookId) {
         provider.updateById(bookId);
     }
 
     @ShellMethod(key = {"bd", "bdel"}, value = "Delete book by id")
-    public void deleteBook(Integer bookId) {
+    public void deleteBook(Long bookId) {
         provider.deleteById(bookId);
     }
 
@@ -33,7 +33,7 @@ public class BookShellCommander {
     }
 
     @ShellMethod(key = {"bgi"}, value = "Get book by id")
-    public void getBookById(Integer bookId) {
+    public void getBookById(Long bookId) {
         provider.getById(bookId);
     }
 

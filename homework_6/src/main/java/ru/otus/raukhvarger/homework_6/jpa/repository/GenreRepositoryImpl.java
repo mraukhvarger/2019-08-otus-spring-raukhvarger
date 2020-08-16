@@ -17,7 +17,7 @@ public class GenreRepositoryImpl implements GenreRepository {
     private EntityManager em;
 
     @Override
-    public GenreEntity getById(Integer genreId) {
+    public GenreEntity getById(Long genreId) {
         return em.find(GenreEntity.class, genreId);
     }
 
@@ -46,7 +46,7 @@ public class GenreRepositoryImpl implements GenreRepository {
     }
 
     @Override
-    public void deleteById(Integer genreId) {
+    public void deleteById(Long genreId) {
         em.remove(getById(genreId));
     }
 

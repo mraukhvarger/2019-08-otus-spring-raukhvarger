@@ -18,7 +18,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     private EntityManager em;
 
     @Override
-    public AuthorEntity getById(Integer authorId) {
+    public AuthorEntity getById(Long authorId) {
         return em.find(AuthorEntity.class, authorId);
     }
 
@@ -47,7 +47,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     }
 
     @Override
-    public void deleteById(Integer authorId) {
+    public void deleteById(Long authorId) {
         em.remove(getById(authorId));
     }
 

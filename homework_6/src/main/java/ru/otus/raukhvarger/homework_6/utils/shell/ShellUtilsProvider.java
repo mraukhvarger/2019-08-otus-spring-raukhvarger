@@ -5,7 +5,7 @@ public interface ShellUtilsProvider {
 
     void update();
 
-    void deleteById(Integer id);
+    void deleteById(Long id);
 
     void browse();
 }

@@ -3,7 +3,9 @@ package ru.otus.raukhvarger.homework_6.jpa.repository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.transaction.annotation.Transactional;
 import ru.otus.raukhvarger.homework_6.jpa.entity.AuthorEntity;
 import ru.otus.raukhvarger.homework_6.jpa.entity.BookEntity;
@@ -17,18 +19,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 @DisplayName("Test book repository")
-@SpringBootTest(classes = Application.class)
+@DataJpaTest
+@Import(Configuration.class)
 @Transactional
 public class BookRepositoryImplTest {
     public static final String TEST_NEW_BOOK_NAME = "Чума";
     public static final String TEST_NEW_AUTHOR_NAME = "Альбер Камю";
     public static final String TEST_NEW_GENRE_NAME = "Философский роман";
-    public static final Integer TEST_NEW_BOOK_ID = 6;
+    public static final Long TEST_NEW_BOOK_ID = 6L;
 
     public static final Integer TEST_EXPECTED_BOOKS_SIZE = 5;
 
     public static final String TEST_EXISTING_BOOK_NAME = "451 градус по фаренгейту";
-    public static final Integer TEST_EXISTING_BOOK_ID = 1;
+    public static final Long TEST_EXISTING_BOOK_ID = 1L;
     @Autowired
     private AuthorRepository authorRepository;
     @Autowired
@@ -100,8 +103,8 @@ public class BookRepositoryImplTest {
     @DisplayName("test update book")
     void testUpdateBook() {
         BookEntity bookEntity = bookRepository.getById(TEST_EXISTING_BOOK_ID);
-        bookEntity.setAuthorId(2);
-        bookEntity.setGenreId(2);
+        bookEntity.setAuthorId(2L);
+        bookEntity.setGenreId(2L);
         bookEntity.setBookName(TEST_NEW_BOOK_NAME);
         bookRepository.update(bookEntity);
         BookEntity updatedBookEntity = bookRepository.getById(TEST_EXISTING_BOOK_ID);

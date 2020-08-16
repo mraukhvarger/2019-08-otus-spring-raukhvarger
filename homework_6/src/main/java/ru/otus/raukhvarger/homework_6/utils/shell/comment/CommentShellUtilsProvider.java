@@ -1,13 +1,13 @@
 package ru.otus.raukhvarger.homework_6.utils.shell.comment;
 
 public interface CommentShellUtilsProvider {
-    void create(Integer bookId);
+    void create(Long bookId);
 
-    void update(Integer id);
+    void update(Long id);
 
-    void deleteById(Integer id);
+    void deleteById(Long id);
 
-    void browseByBookId(Integer bookId);
+    void browseByBookId(Long bookId);
 
     void browse();
 }

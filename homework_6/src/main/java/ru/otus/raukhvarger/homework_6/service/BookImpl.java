@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.otus.raukhvarger.homework_6.dto.BookDTO;
 import ru.otus.raukhvarger.homework_6.jpa.entity.BookEntity;
 import ru.otus.raukhvarger.homework_6.jpa.repository.BookRepository;
+import ru.otus.raukhvarger.homework_6.utils.EntityConverter;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,15 +24,15 @@ public class BookImpl implements BookProvider {
     }
 
     @Override
-    public BookDTO getById(Integer id) {
+    public BookDTO getById(Long id) {
         BookEntity bookEntity = bookRepository.getById(id);
-        return bookEntity != null ? bookEntity.buildDTO() : null;
+        return bookEntity != null ? EntityConverter.buildDTO(bookEntity) : null;
     }
 
     @Override
     public List<BookDTO> getByName(String name) {
         return bookRepository.getByName(name).stream()
-                .map(a -> a.buildDTO())
+                .map(EntityConverter::buildDTO)
                 .collect(Collectors.toList());
     }
 
@@ -41,14 +42,14 @@ public class BookImpl implements BookProvider {
     }
 
     @Override
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         bookRepository.deleteById(id);
     }
 
     @Override
     public List<BookDTO> getAll() {
         return bookRepository.getAll().stream()
-                .map(a -> a.buildDTO())
+                .map(EntityConverter::buildDTO)
                 .collect(Collectors.toList());
     }
 }

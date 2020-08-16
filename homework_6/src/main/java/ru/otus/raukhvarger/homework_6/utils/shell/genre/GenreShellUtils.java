@@ -87,7 +87,7 @@ public class GenreShellUtils implements ShellUtilsProvider {
     }
 
     @Override
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         GenreDTO genre = genreProvider.getById(id);
         if (genre != null) {
             genreProvider.deleteById(id);

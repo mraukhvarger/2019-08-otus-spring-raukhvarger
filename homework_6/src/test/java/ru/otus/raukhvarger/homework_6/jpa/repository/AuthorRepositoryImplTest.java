@@ -3,19 +3,20 @@ package ru.otus.raukhvarger.homework_6.jpa.repository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
 import ru.otus.raukhvarger.homework_6.jpa.entity.AuthorEntity;
-import ru.otus.raukhvarger.homework_6.spring.Application;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DisplayName("Test author repository")
-@SpringBootTest(classes = Application.class)
+@DataJpaTest
+@Import(Configuration.class)
 public class AuthorRepositoryImplTest {
     public static final String TEST_NEW_AUTHOR_NAME = "Ирвин Шоу";
     public static final String TEST_EXISTING_AUTHOR_NAME = "Рэй Брэдбери";
-    public static final Integer TEST_EXISTING_AUTHOR_ID = 1;
+    public static final Long TEST_EXISTING_AUTHOR_ID = 1L;
     @Autowired
     private AuthorRepository authorRepository;
 

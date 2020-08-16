@@ -5,7 +5,7 @@ import ru.otus.raukhvarger.homework_6.jpa.entity.BookEntity;
 import java.util.List;
 
 public interface BookRepository {
-    BookEntity getById(Integer bookId);
+    BookEntity getById(Long bookId);
 
     List<BookEntity> getByName(String bookName);
 
@@ -13,7 +13,7 @@ public interface BookRepository {
 
     void update(BookEntity bookEntity);
 
-    void deleteById(Integer bookId);
+    void deleteById(Long bookId);
 
     List<BookEntity> getAll();
 }

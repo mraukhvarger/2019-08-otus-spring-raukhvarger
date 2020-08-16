@@ -7,13 +7,13 @@ import java.util.List;
 public interface CommentProvider {
     void create(CommentDTO comment);
 
-    CommentDTO getById(Integer id);
+    CommentDTO getById(Long id);
 
-    List<CommentDTO> getByBookId(Integer bookId);
+    List<CommentDTO> getByBookId(Long bookId);
 
     void update(CommentDTO comment);
 
-    void deleteById(Integer id);
+    void deleteById(Long id);
 
     List<CommentDTO> getAll();
 }

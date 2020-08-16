@@ -24,7 +24,7 @@ public class AuthorShellCommander {
     }
 
     @ShellMethod(key = {"ad", "adel"}, value = "Delete author by id")
-    public void deleteAuthor(Integer authorId) {
+    public void deleteAuthor(Long authorId) {
         provider.deleteById(authorId);
     }
 
