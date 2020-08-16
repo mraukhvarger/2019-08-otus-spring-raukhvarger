@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/dbtest
+    username: dbtest
+    password: dbtest
+    hikari:
+      connection-test-query: select 1
+    initialization-mode: always
+    schema: db/structure.sql
+    data: db/data.sql
