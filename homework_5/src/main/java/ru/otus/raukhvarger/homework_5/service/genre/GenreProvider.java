@@ -1,13 +1,13 @@
 package ru.otus.raukhvarger.homework_5.service.genre;
 
-import ru.otus.raukhvarger.homework_5.entity.GenreEntity;
+import ru.otus.raukhvarger.homework_5.entity.Genre;
 
 public interface GenreProvider {
-    void createGenre(GenreEntity genreEntity);
+    void createGenre(Genre genre);
 
-    GenreEntity getExistingGenreById(Integer genreId);
+    Genre getExistingGenreById(Integer genreId);
 
-    GenreEntity getGenreByName(String genreName);
+    Genre getGenreByName(String genreName);
 
-    GenreEntity getOrCreateGenreByName(String genreName);
+    Genre getOrCreateGenreByName(String genreName);
 }

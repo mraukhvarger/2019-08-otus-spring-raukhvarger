@@ -1,19 +1,19 @@
 package ru.otus.raukhvarger.homework_5.db;
 
-import ru.otus.raukhvarger.homework_5.entity.BookEntity;
+import ru.otus.raukhvarger.homework_5.entity.Book;
 
 import java.util.List;
 
 public interface BookRepository {
-    BookEntity getBookById(Integer bookId);
+    Book getBookById(Integer bookId);
 
-    List<BookEntity> getBooksByName(String bookName);
+    List<Book> getBooksByName(String bookName);
 
-    void insertBook(BookEntity bookEntity);
+    void insertBook(Book book);
 
     void deleteBookById(Integer bookId);
 
-    List<BookEntity> getAllBooks();
+    List<Book> getAllBooks();
 
     void updateBookAuthor(Integer bookId, Integer authorId);
 

@@ -1,13 +1,13 @@
 package ru.otus.raukhvarger.homework_5.service.author;
 
-import ru.otus.raukhvarger.homework_5.entity.AuthorEntity;
+import ru.otus.raukhvarger.homework_5.entity.Author;
 
 public interface AuthorProvider {
-    void createAuthor(AuthorEntity authorEntity);
+    void createAuthor(Author author);
 
-    AuthorEntity getExistingAuthorById(Integer authorId);
+    Author getExistingAuthorById(Integer authorId);
 
-    AuthorEntity getAuthorByName(String authorName);
+    Author getAuthorByName(String authorName);
 
-    AuthorEntity getOrCreateAuthorByName(String authorName);
+    Author getOrCreateAuthorByName(String authorName);
 }

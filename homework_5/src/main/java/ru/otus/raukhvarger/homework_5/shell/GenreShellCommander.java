@@ -3,7 +3,7 @@ package ru.otus.raukhvarger.homework_5.shell;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.util.StringUtils;
-import ru.otus.raukhvarger.homework_5.entity.GenreEntity;
+import ru.otus.raukhvarger.homework_5.entity.Genre;
 import ru.otus.raukhvarger.homework_5.service.genre.GenreProvider;
 import ru.otus.raukhvarger.homework_5.utils.io.IOProvider;
 import ru.otus.raukhvarger.homework_5.utils.messages.MessageProvider;
@@ -33,8 +33,8 @@ public class GenreShellCommander {
                 return;
             } else {
                 entered = true;
-                GenreEntity genreEntity = new GenreEntity(null, genreName);
-                genreProvider.createGenre(genreEntity);
+                Genre genre = new Genre(null, genreName);
+                genreProvider.createGenre(genre);
                 ioProvider.print(messageProvider.getFormattedMessage("HW.GenreCreated", genreName));
             }
         }

@@ -10,20 +10,12 @@ import java.util.Map;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthorEntity {
+public class Author {
     private Integer authorId;
     private String authorName;
 
-    public AuthorEntity(String authorName) {
+    public Author(String authorName) {
         this.authorName = authorName;
     }
 
-    public Map convertToMap() {
-        Map authorMap = new HashMap<>();
-        if (authorId != null) {
-            authorMap.put("authorId", authorId);
-        }
-        authorMap.put("authorName", authorName);
-        return authorMap;
-    }
 }

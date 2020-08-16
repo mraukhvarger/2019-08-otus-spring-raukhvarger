@@ -1,21 +1,21 @@
 package ru.otus.raukhvarger.homework_5.service.book;
 
-import ru.otus.raukhvarger.homework_5.entity.AuthorEntity;
-import ru.otus.raukhvarger.homework_5.entity.BookEntity;
-import ru.otus.raukhvarger.homework_5.entity.GenreEntity;
+import ru.otus.raukhvarger.homework_5.entity.Author;
+import ru.otus.raukhvarger.homework_5.entity.Book;
+import ru.otus.raukhvarger.homework_5.entity.Genre;
 
 import java.util.List;
 
 public interface BookProvider {
-    void createBook(BookEntity bookEntity);
+    void createBook(Book book);
 
-    BookEntity getBookById(Integer bookId);
+    Book getBookById(Integer bookId);
 
-    List<BookEntity> getBooksByName(String bookName);
+    List<Book> getBooksByName(String bookName);
 
-    List<BookEntity> listBooks();
+    List<Book> listBooks();
 
     void deleteBookById(Integer bookId);
 
-    void updateBook(Integer bookId, AuthorEntity authorEntity, GenreEntity genreEntity, String bookName);
+    void updateBook(Integer bookId, Author author, Genre genre, String bookName);
 }

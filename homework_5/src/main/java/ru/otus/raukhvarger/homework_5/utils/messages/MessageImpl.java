@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 
 @Service
 public class MessageImpl implements MessageProvider {
-    private static final String BUNDLE_NAME = "ru.otus.raukhvarger.homework_5.i18n.hw";
+    private static final String BUNDLE_NAME = "i18n.hw";
     private final Locale locale;
 
     public MessageImpl() {

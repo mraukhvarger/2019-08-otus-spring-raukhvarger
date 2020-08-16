@@ -2,9 +2,9 @@ package ru.otus.raukhvarger.homework_5.utils.shell;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import ru.otus.raukhvarger.homework_5.entity.AuthorEntity;
-import ru.otus.raukhvarger.homework_5.entity.BookEntity;
-import ru.otus.raukhvarger.homework_5.entity.GenreEntity;
+import ru.otus.raukhvarger.homework_5.entity.Author;
+import ru.otus.raukhvarger.homework_5.entity.Book;
+import ru.otus.raukhvarger.homework_5.entity.Genre;
 import ru.otus.raukhvarger.homework_5.service.author.AuthorProvider;
 import ru.otus.raukhvarger.homework_5.service.book.BookProvider;
 import ru.otus.raukhvarger.homework_5.service.genre.GenreProvider;
@@ -29,7 +29,7 @@ public class ShellUtils {
         this.bookProvider = bookProvider;
     }
 
-    public BookEntity getBook() {
+    public Book getBook() {
         ioProvider.print(messageProvider.getMessage("HW.EnterBookName"));
         boolean entered = false;
         while (!entered) {
@@ -37,14 +37,14 @@ public class ShellUtils {
             if (StringUtils.isEmpty(bookName)) {
                 ioProvider.print(messageProvider.getMessage("HW.BookNameNotEmpty"));
             } else {
-                BookEntity bookEntity = new BookEntity(bookName);
-                return bookEntity;
+                Book book = new Book(bookName);
+                return book;
             }
         }
         throw new RuntimeException(messageProvider.getMessage("HW.DataEntryError"));
     }
 
-    public GenreEntity getGenre() {
+    public Genre getGenre() {
         ioProvider.print(messageProvider.getMessage("HW.EnterGenreName"));
         boolean entered = false;
         while (!entered) {
@@ -52,14 +52,14 @@ public class ShellUtils {
             if (StringUtils.isEmpty(genreName)) {
                 ioProvider.print(messageProvider.getMessage("HW.GenreNameNotEmpty"));
             } else {
-                GenreEntity genreEntity = genreProvider.getOrCreateGenreByName(genreName);
-                return genreEntity;
+                Genre genre = genreProvider.getOrCreateGenreByName(genreName);
+                return genre;
             }
         }
         throw new RuntimeException(messageProvider.getMessage("HW.DataEntryError"));
     }
 
-    public AuthorEntity getAuthor() {
+    public Author getAuthor() {
         ioProvider.print(messageProvider.getMessage("HW.EnterAuthorName"));
         boolean entered = false;
         while (!entered) {
@@ -67,8 +67,8 @@ public class ShellUtils {
             if (StringUtils.isEmpty(authorName)) {
                 ioProvider.print(messageProvider.getMessage("HW.AuthorNameNotEmpty"));
             } else {
-                AuthorEntity authorEntity = authorProvider.getOrCreateAuthorByName(authorName);
-                return authorEntity;
+                Author author = authorProvider.getOrCreateAuthorByName(authorName);
+                return author;
             }
         }
         throw new RuntimeException(messageProvider.getMessage("HW.DataEntryError"));
@@ -88,14 +88,14 @@ public class ShellUtils {
         return null;
     }
 
-    public GenreEntity getGenreForUpdate() {
+    public Genre getGenreForUpdate() {
         ioProvider.print(messageProvider.getMessage("HW.EnterGenreName"));
         boolean entered = false;
         while (!entered) {
             String genreName = ioProvider.read();
             if (!StringUtils.isEmpty(genreName)) {
-                GenreEntity genreEntity = genreProvider.getOrCreateGenreByName(genreName);
-                return genreEntity;
+                Genre genre = genreProvider.getOrCreateGenreByName(genreName);
+                return genre;
             } else {
                 entered = true;
             }
@@ -103,14 +103,14 @@ public class ShellUtils {
         return null;
     }
 
-    public AuthorEntity getAuthorForUpdate() {
+    public Author getAuthorForUpdate() {
         ioProvider.print(messageProvider.getMessage("HW.EnterAuthorName"));
         boolean entered = false;
         while (!entered) {
             String authorName = ioProvider.read();
             if (!StringUtils.isEmpty(authorName)) {
-                AuthorEntity authorEntity = authorProvider.getOrCreateAuthorByName(authorName);
-                return authorEntity;
+                Author author = authorProvider.getOrCreateAuthorByName(authorName);
+                return author;
             } else {
                 entered = true;
             }

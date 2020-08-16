@@ -1,11 +1,11 @@
 package ru.otus.raukhvarger.homework_5.db;
 
-import ru.otus.raukhvarger.homework_5.entity.GenreEntity;
+import ru.otus.raukhvarger.homework_5.entity.Genre;
 
 public interface GenreRepository {
-    GenreEntity getExistingGenreById(Integer genreId);
+    Genre getExistingGenreById(Integer genreId);
 
-    GenreEntity getGenreByName(String genreName);
+    Genre getGenreByName(String genreName);
 
-    void insertGenre(GenreEntity genreEntity);
+    void insertGenre(Genre genre);
 }

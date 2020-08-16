@@ -3,7 +3,7 @@ package ru.otus.raukhvarger.homework_5.shell;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.util.StringUtils;
-import ru.otus.raukhvarger.homework_5.entity.AuthorEntity;
+import ru.otus.raukhvarger.homework_5.entity.Author;
 import ru.otus.raukhvarger.homework_5.service.author.AuthorProvider;
 import ru.otus.raukhvarger.homework_5.utils.io.IOProvider;
 import ru.otus.raukhvarger.homework_5.utils.messages.MessageProvider;
@@ -33,8 +33,8 @@ public class AuthorShellCommander {
                 return;
             } else {
                 entered = true;
-                AuthorEntity authorEntity = new AuthorEntity(null, authorName);
-                authorProvider.createAuthor(authorEntity);
+                Author author = new Author(null, authorName);
+                authorProvider.createAuthor(author);
                 ioProvider.print(messageProvider.getFormattedMessage("HW.AuthorCreated", authorName));
             }
         }

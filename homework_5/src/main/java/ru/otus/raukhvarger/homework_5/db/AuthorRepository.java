@@ -1,11 +1,11 @@
 package ru.otus.raukhvarger.homework_5.db;
 
-import ru.otus.raukhvarger.homework_5.entity.AuthorEntity;
+import ru.otus.raukhvarger.homework_5.entity.Author;
 
 public interface AuthorRepository {
-    AuthorEntity getExistingAuthorById(Integer authorId);
+    Author getExistingAuthorById(Integer authorId);
 
-    AuthorEntity getAuthorByName(String authorName);
+    Author getAuthorByName(String authorName);
 
-    void insertAuthor(AuthorEntity authorEntity);
+    void insertAuthor(Author author);
 }

@@ -49,6 +49,10 @@
                     <groupId>junit</groupId>
                     <artifactId>junit</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -86,6 +90,7 @@
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>*</include>
+                    <include>i18n/**</include>
                     <include>db/**</include>
                 </includes>
             </resource>

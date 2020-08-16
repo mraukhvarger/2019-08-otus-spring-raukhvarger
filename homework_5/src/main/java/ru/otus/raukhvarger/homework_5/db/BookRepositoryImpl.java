@@ -3,7 +3,8 @@ package ru.otus.raukhvarger.homework_5.db;
 import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
-import ru.otus.raukhvarger.homework_5.entity.BookEntity;
+import ru.otus.raukhvarger.homework_5.entity.Book;
+import ru.otus.raukhvarger.homework_5.utils.EntityConverter;
 import ru.otus.raukhvarger.homework_5.utils.mapper.BookRowMapper;
 
 import java.util.HashMap;
@@ -19,7 +20,7 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public BookEntity getBookById(Integer bookId) {
+    public Book getBookById(Integer bookId) {
         String query = "select b.bookid, b.bookname, b.authorid, b.genreid, a.authorname, g.genrename " +
                 "from table_book b " +
                 "left join table_author a on b.authorid = a.authorid " +
@@ -27,13 +28,13 @@ public class BookRepositoryImpl implements BookRepository {
                 "where bookid = :bookId";
         Map<String, Object> queryParams = new HashMap<>();
         queryParams.put("bookId", bookId);
-        List<BookEntity> bookEntities = template.query(query, queryParams, new BookRowMapper());
+        List<Book> bookEntities = template.query(query, queryParams, new BookRowMapper());
         if (bookEntities.size() > 0) return bookEntities.get(0);
         else return null;
     }
 
     @Override
-    public List<BookEntity> getBooksByName(String bookName) {
+    public List<Book> getBooksByName(String bookName) {
         String query = "select b.bookid, b.bookname, b.authorid, b.genreid, a.authorname, g.genrename " +
                 "from table_book b " +
                 "left join table_author a on b.authorid = a.authorid " +
@@ -45,9 +46,9 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public void insertBook(BookEntity bookEntity) {
+    public void insertBook(Book book) {
         String query = "insert into table_book(bookname, authorid, genreid) values (:bookName, :authorId, :genreId)";
-        template.execute(query, bookEntity.convertToMap(), (PreparedStatementCallback) ps -> ps.executeUpdate());
+        template.update(query, EntityConverter.convertBookToMap(book));
     }
 
     @Override
@@ -55,11 +56,11 @@ public class BookRepositoryImpl implements BookRepository {
         String query = "delete from table_book where bookid = :bookId";
         Map<String, Object> queryParams = new HashMap<>();
         queryParams.put("bookId", bookId);
-        template.execute(query, queryParams, (PreparedStatementCallback) ps -> ps.executeUpdate());
+        template.update(query, queryParams);
     }
 
     @Override
-    public List<BookEntity> getAllBooks() {
+    public List<Book> getAllBooks() {
         String query = "select b.bookid, b.bookname, b.authorid, b.genreid, a.authorname, g.genrename " +
                 "from table_book b " +
                 "left join table_author a on b.authorid = a.authorid " +
@@ -73,7 +74,7 @@ public class BookRepositoryImpl implements BookRepository {
         Map<String, Object> queryParams = new HashMap<>();
         queryParams.put("bookId", bookId);
         queryParams.put("authorId", authorId);
-        template.execute(query, queryParams, (PreparedStatementCallback) ps -> ps.executeUpdate());
+        template.update(query, queryParams);
     }
 
     @Override
@@ -82,7 +83,7 @@ public class BookRepositoryImpl implements BookRepository {
         Map<String, Object> queryParams = new HashMap<>();
         queryParams.put("bookId", bookId);
         queryParams.put("genreId", genreId);
-        template.execute(query, queryParams, (PreparedStatementCallback) ps -> ps.executeUpdate());
+        template.update(query, queryParams);
     }
 
     @Override
@@ -91,6 +92,6 @@ public class BookRepositoryImpl implements BookRepository {
         Map<String, Object> queryParams = new HashMap<>();
         queryParams.put("bookId", bookId);
         queryParams.put("bookName", bookName);
-        template.execute(query, queryParams, (PreparedStatementCallback) ps -> ps.executeUpdate());
+        template.update(query, queryParams);
     }
 }
