@@ -24,8 +24,8 @@ public class BookDTO {
         return BookEntity.builder()
                 .bookId(bookId)
                 .bookName(bookName)
-                .authorId(author.getAuthorId())
-                .genreId(genre.getGenreId())
+                .authorEntity(author.buildJpaEntity())
+                .genreEntity(genre.buildJpaEntity())
                 .build();
     }
 

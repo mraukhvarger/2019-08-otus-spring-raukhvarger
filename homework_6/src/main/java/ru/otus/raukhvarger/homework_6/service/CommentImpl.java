@@ -1,6 +1,7 @@
 package ru.otus.raukhvarger.homework_6.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.otus.raukhvarger.homework_6.dto.CommentDTO;
 import ru.otus.raukhvarger.homework_6.jpa.entity.CommentEntity;
 import ru.otus.raukhvarger.homework_6.jpa.repository.CommentRepository;
@@ -11,10 +12,13 @@ import java.util.stream.Collectors;
 
 @Service
 public class CommentImpl implements CommentProvider {
-    private final CommentRepository commentRepository;
 
-    public CommentImpl(CommentRepository commentRepository) {
+    private final CommentRepository commentRepository;
+    private final EntityConverter entityConverter;
+
+    public CommentImpl(CommentRepository commentRepository, EntityConverter entityConverter) {
         this.commentRepository = commentRepository;
+        this.entityConverter = entityConverter;
     }
 
     @Override
@@ -25,13 +29,13 @@ public class CommentImpl implements CommentProvider {
     @Override
     public CommentDTO getById(Long id) {
         CommentEntity commentEntity = commentRepository.getById(id);
-        return commentEntity != null ? EntityConverter.buildDTO(commentEntity) : null;
+        return commentEntity != null ? entityConverter.buildDTO(commentEntity) : null;
     }
 
     @Override
     public List<CommentDTO> getByBookId(Long bookId) {
         return commentRepository.getByBookId(bookId).stream()
-                .map(EntityConverter::buildDTO)
+                .map(entityConverter::buildDTO)
                 .collect(Collectors.toList());
     }
 
@@ -46,9 +50,10 @@ public class CommentImpl implements CommentProvider {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<CommentDTO> getAll() {
         return commentRepository.getAll().stream()
-                .map(EntityConverter::buildDTO)
+                .map(entityConverter::buildDTO)
                 .collect(Collectors.toList());
     }
 }

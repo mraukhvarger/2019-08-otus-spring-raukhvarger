@@ -11,7 +11,6 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
-@Transactional
 public class CommentRepositoryImpl implements CommentRepository {
     @PersistenceContext
     private EntityManager em;
@@ -25,7 +24,7 @@ public class CommentRepositoryImpl implements CommentRepository {
     public List<CommentEntity> getByBookId(Long bookId) {
         try {
             TypedQuery<CommentEntity> query = em.createQuery(
-                    "select c from CommentEntity c where c.bookId = :bookId order by c.commentId",
+                    "select c from CommentEntity c where c.bookEntity.bookId = :bookId order by c.commentId",
                     CommentEntity.class
             );
             query.setParameter("bookId", bookId);

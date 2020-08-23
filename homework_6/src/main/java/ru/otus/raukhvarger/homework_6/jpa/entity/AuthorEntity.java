@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import ru.otus.raukhvarger.homework_6.dto.AuthorDTO;
 
 import javax.persistence.*;
@@ -26,6 +28,7 @@ public class AuthorEntity {
 
     @OneToMany(targetEntity = BookEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "AUTHORID", insertable = false, updatable = false)
+    @Fetch(value = FetchMode.SUBSELECT)
     private Set<BookEntity> bookEntities;
 
 }

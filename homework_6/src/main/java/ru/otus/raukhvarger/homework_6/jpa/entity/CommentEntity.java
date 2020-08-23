@@ -24,11 +24,8 @@ public class CommentEntity {
     @Column(name = "COMMENT", length = 4000)
     private String comment;
 
-    @Column(name = "BOOKID")
-    private Long bookId;
-
     @ManyToOne(targetEntity = BookEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "BOOKID", insertable = false, updatable = false)
+    @JoinColumn(name = "BOOKID")
     @BatchSize(size = 10)
     private BookEntity bookEntity;
 

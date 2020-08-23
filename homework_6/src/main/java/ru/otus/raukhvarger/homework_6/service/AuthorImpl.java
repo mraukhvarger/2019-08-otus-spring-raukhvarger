@@ -12,10 +12,13 @@ import java.util.stream.Collectors;
 
 @Service
 public class AuthorImpl implements AuthorProvider {
-    private final AuthorRepository authorRepository;
 
-    public AuthorImpl(AuthorRepository authorRepository) {
+    private final AuthorRepository authorRepository;
+    private final EntityConverter entityConverter;
+
+    public AuthorImpl(AuthorRepository authorRepository, EntityConverter entityConverter) {
         this.authorRepository = authorRepository;
+        this.entityConverter = entityConverter;
     }
 
     @Override
@@ -26,25 +29,25 @@ public class AuthorImpl implements AuthorProvider {
     @Override
     public AuthorDTO getById(Long id) {
         AuthorEntity authorEntity = authorRepository.getById(id);
-        return authorEntity != null ? EntityConverter.buildDTO(authorEntity) : null;
+        return authorEntity != null ? entityConverter.buildDTO(authorEntity) : null;
     }
 
     @Override
     public AuthorDTO getByName(String name) {
         AuthorEntity authorEntity = authorRepository.getByName(name);
-        return authorEntity != null ? EntityConverter.buildDTO(authorEntity) : null;
+        return authorEntity != null ? entityConverter.buildDTO(authorEntity) : null;
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public AuthorDTO getByNameWithBooks(String name) {
         AuthorEntity authorEntity = authorRepository.getByName(name != null ? name.toUpperCase() : null);
         AuthorDTO authorDTO = null;
         if (authorEntity != null) {
-            authorDTO = EntityConverter.buildDTO(authorEntity);
+            authorDTO = entityConverter.buildDTO(authorEntity);
             authorDTO.setBooks(
                     authorEntity.getBookEntities().stream()
-                            .map(EntityConverter::buildDTO)
+                            .map(entityConverter::buildDTO)
                             .collect(Collectors.toSet())
             );
         }
@@ -54,7 +57,7 @@ public class AuthorImpl implements AuthorProvider {
     @Override
     public AuthorDTO getOrCreateByName(String name) {
         if (authorRepository.getByName(name) == null) authorRepository.insert((new AuthorDTO(name)).buildJpaEntity());
-        return EntityConverter.buildDTO(authorRepository.getByName(name));
+        return entityConverter.buildDTO(authorRepository.getByName(name));
     }
 
     @Override
@@ -68,9 +71,10 @@ public class AuthorImpl implements AuthorProvider {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<AuthorDTO> getAll() {
         return authorRepository.getAll().stream()
-                .map(EntityConverter::buildDTO)
+                .map(entityConverter::buildDTO)
                 .collect(Collectors.toList());
     }
 }

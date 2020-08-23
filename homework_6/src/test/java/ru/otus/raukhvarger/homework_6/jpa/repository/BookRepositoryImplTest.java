@@ -54,15 +54,15 @@ public class BookRepositoryImplTest {
 
         BookEntity bookEntity = new BookEntity();
         bookEntity.setBookName(TEST_NEW_BOOK_NAME);
-        bookEntity.setGenreId(createdGenreEntity.getGenreId());
-        bookEntity.setAuthorId(createdAuthorEntity.getAuthorId());
+        bookEntity.setGenreEntity(createdGenreEntity);
+        bookEntity.setAuthorEntity(createdAuthorEntity);
         bookRepository.insert(bookEntity);
 
         BookEntity createdBookEntity = bookRepository.getById(TEST_NEW_BOOK_ID);
         assertNotNull(createdBookEntity);
         assertEquals(TEST_NEW_BOOK_NAME, createdBookEntity.getBookName());
-        assertEquals(createdAuthorEntity.getAuthorId(), createdBookEntity.getAuthorId());
-        assertEquals(createdGenreEntity.getGenreId(), createdBookEntity.getGenreId());
+        assertEquals(createdAuthorEntity.getAuthorId(), createdBookEntity.getAuthorEntity().getAuthorId());
+        assertEquals(createdGenreEntity.getGenreId(), createdBookEntity.getGenreEntity().getGenreId());
     }
 
     @Test
@@ -103,13 +103,13 @@ public class BookRepositoryImplTest {
     @DisplayName("test update book")
     void testUpdateBook() {
         BookEntity bookEntity = bookRepository.getById(TEST_EXISTING_BOOK_ID);
-        bookEntity.setAuthorId(2L);
-        bookEntity.setGenreId(2L);
+        bookEntity.setAuthorEntity(AuthorEntity.builder().authorId(2L).build());
+        bookEntity.setGenreEntity(GenreEntity.builder().genreId(2L).build());
         bookEntity.setBookName(TEST_NEW_BOOK_NAME);
         bookRepository.update(bookEntity);
         BookEntity updatedBookEntity = bookRepository.getById(TEST_EXISTING_BOOK_ID);
-        assertThat(updatedBookEntity.getAuthorId()).isEqualTo(2);
-        assertThat(updatedBookEntity.getGenreId()).isEqualTo(2);
+        assertThat(updatedBookEntity.getAuthorEntity().getAuthorId()).isEqualTo(2);
+        assertThat(updatedBookEntity.getGenreEntity().getGenreId()).isEqualTo(2);
         assertThat(updatedBookEntity.getBookName()).isEqualTo(TEST_NEW_BOOK_NAME);
     }
 }

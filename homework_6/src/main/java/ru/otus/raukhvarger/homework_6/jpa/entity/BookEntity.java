@@ -1,6 +1,8 @@
 package ru.otus.raukhvarger.homework_6.jpa.entity;
 
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import ru.otus.raukhvarger.homework_6.dto.BookDTO;
 
 import javax.persistence.*;
@@ -22,18 +24,12 @@ public class BookEntity {
     @Column(name = "BOOKNAME")
     private String bookName;
 
-    @Column(name = "AUTHORID")
-    private Long authorId;
-
-    @Column(name = "GENREID")
-    private Long genreId;
-
     @ManyToOne(targetEntity = AuthorEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "AUTHORID", insertable = false, updatable = false)
+    @JoinColumn(name = "AUTHORID")
     private AuthorEntity authorEntity;
 
     @ManyToOne(targetEntity = GenreEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "GENREID", insertable = false, updatable = false)
+    @JoinColumn(name = "GENREID")
     private GenreEntity genreEntity;
 
 }

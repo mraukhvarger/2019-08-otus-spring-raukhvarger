@@ -1,6 +1,7 @@
 package ru.otus.raukhvarger.homework_6.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.otus.raukhvarger.homework_6.dto.GenreDTO;
 import ru.otus.raukhvarger.homework_6.jpa.entity.GenreEntity;
 import ru.otus.raukhvarger.homework_6.jpa.repository.GenreRepository;
@@ -13,9 +14,11 @@ import java.util.stream.Collectors;
 public class GenreImpl implements GenreProvider {
 
     private final GenreRepository genreRepository;
+    private final EntityConverter entityConverter;
 
-    public GenreImpl(GenreRepository genreRepository) {
+    public GenreImpl(GenreRepository genreRepository, EntityConverter entityConverter) {
         this.genreRepository = genreRepository;
+        this.entityConverter = entityConverter;
     }
 
     @Override
@@ -26,19 +29,19 @@ public class GenreImpl implements GenreProvider {
     @Override
     public GenreDTO getById(Long id) {
         GenreEntity genreEntity = genreRepository.getById(id);
-        return genreEntity != null ? EntityConverter.buildDTO(genreEntity) : null;
+        return genreEntity != null ? entityConverter.buildDTO(genreEntity) : null;
     }
 
     @Override
     public GenreDTO getByName(String name) {
         GenreEntity genreEntity = genreRepository.getByName(name);
-        return genreEntity != null ? EntityConverter.buildDTO(genreEntity) : null;
+        return genreEntity != null ? entityConverter.buildDTO(genreEntity) : null;
     }
 
     @Override
     public GenreDTO getOrCreateByName(String name) {
         if (genreRepository.getByName(name) == null) genreRepository.insert((new GenreDTO(name)).buildJpaEntity());
-        return EntityConverter.buildDTO(genreRepository.getByName(name));
+        return entityConverter.buildDTO(genreRepository.getByName(name));
     }
 
     @Override
@@ -52,9 +55,10 @@ public class GenreImpl implements GenreProvider {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<GenreDTO> getAll() {
         return genreRepository.getAll().stream()
-                .map(EntityConverter::buildDTO)
+                .map(entityConverter::buildDTO)
                 .collect(Collectors.toList());
     }
 }

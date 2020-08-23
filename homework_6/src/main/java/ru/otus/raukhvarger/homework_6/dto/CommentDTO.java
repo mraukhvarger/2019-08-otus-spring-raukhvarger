@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.otus.raukhvarger.homework_6.jpa.entity.CommentEntity;
+import ru.otus.raukhvarger.homework_6.utils.EntityConverter;
 
 @Data
 @Builder
@@ -23,7 +24,7 @@ public class CommentDTO {
     public CommentEntity buildJpaEntity() {
         return CommentEntity.builder()
                 .commentId(commentId)
-                .bookId(book.getBookId())
+                .bookEntity(book.buildJpaEntity())
                 .comment(comment)
                 .build();
     }

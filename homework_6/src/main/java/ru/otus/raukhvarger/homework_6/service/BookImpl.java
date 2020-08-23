@@ -1,6 +1,7 @@
 package ru.otus.raukhvarger.homework_6.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.otus.raukhvarger.homework_6.dto.BookDTO;
 import ru.otus.raukhvarger.homework_6.jpa.entity.BookEntity;
 import ru.otus.raukhvarger.homework_6.jpa.repository.BookRepository;
@@ -13,9 +14,11 @@ import java.util.stream.Collectors;
 public class BookImpl implements BookProvider {
 
     private final BookRepository bookRepository;
+    private final EntityConverter entityConverter;
 
-    public BookImpl(BookRepository bookRepository) {
+    public BookImpl(BookRepository bookRepository, EntityConverter entityConverter) {
         this.bookRepository = bookRepository;
+        this.entityConverter = entityConverter;
     }
 
     @Override
@@ -26,13 +29,13 @@ public class BookImpl implements BookProvider {
     @Override
     public BookDTO getById(Long id) {
         BookEntity bookEntity = bookRepository.getById(id);
-        return bookEntity != null ? EntityConverter.buildDTO(bookEntity) : null;
+        return bookEntity != null ? entityConverter.buildDTO(bookEntity) : null;
     }
 
     @Override
     public List<BookDTO> getByName(String name) {
         return bookRepository.getByName(name).stream()
-                .map(EntityConverter::buildDTO)
+                .map(entityConverter::buildDTO)
                 .collect(Collectors.toList());
     }
 
@@ -47,9 +50,10 @@ public class BookImpl implements BookProvider {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<BookDTO> getAll() {
         return bookRepository.getAll().stream()
-                .map(EntityConverter::buildDTO)
+                .map(entityConverter::buildDTO)
                 .collect(Collectors.toList());
     }
 }
