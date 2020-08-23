@@ -27,12 +27,14 @@ public class BookImpl implements BookProvider {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public BookDTO getById(Long id) {
         BookEntity bookEntity = bookRepository.getById(id);
         return bookEntity != null ? entityConverter.buildDTO(bookEntity) : null;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<BookDTO> getByName(String name) {
         return bookRepository.getByName(name).stream()
                 .map(entityConverter::buildDTO)

@@ -27,12 +27,14 @@ public class AuthorImpl implements AuthorProvider {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public AuthorDTO getById(Long id) {
         AuthorEntity authorEntity = authorRepository.getById(id);
         return authorEntity != null ? entityConverter.buildDTO(authorEntity) : null;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public AuthorDTO getByName(String name) {
         AuthorEntity authorEntity = authorRepository.getByName(name);
         return authorEntity != null ? entityConverter.buildDTO(authorEntity) : null;

@@ -27,12 +27,14 @@ public class CommentImpl implements CommentProvider {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public CommentDTO getById(Long id) {
         CommentEntity commentEntity = commentRepository.getById(id);
         return commentEntity != null ? entityConverter.buildDTO(commentEntity) : null;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<CommentDTO> getByBookId(Long bookId) {
         return commentRepository.getByBookId(bookId).stream()
                 .map(entityConverter::buildDTO)

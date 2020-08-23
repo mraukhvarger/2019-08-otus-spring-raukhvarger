@@ -27,12 +27,14 @@ public class GenreImpl implements GenreProvider {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public GenreDTO getById(Long id) {
         GenreEntity genreEntity = genreRepository.getById(id);
         return genreEntity != null ? entityConverter.buildDTO(genreEntity) : null;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public GenreDTO getByName(String name) {
         GenreEntity genreEntity = genreRepository.getByName(name);
         return genreEntity != null ? entityConverter.buildDTO(genreEntity) : null;
